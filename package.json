@@ -24,7 +24,6 @@
   },
   "scripts": {
     "start": "node server/build/app.js",
-    "heroku-postbuild": "npm run build",
     "build": "npm run build:frontend && npm run build:server",
     "build:frontend": "cd frontend && npm run build && cd ..",
     "build:server": "cd server && npm run tsc && cd ..",
