@@ -31,25 +31,11 @@ const schema = yup.object().shape({
   // incrementorName: yup.number().min(3, 'Minimum 3 required'),
 })
 
-// interface IData {
-//   inputName: string
-//   textAreaName: string
-//   checkboxName: boolean
-//   selectName: yup.object()
-//     .shape({
-//       label: yup.string().required(),
-//       value: yup.string().required(),
-//     })
-//     .typeError('Must select an option'),
-//   radioGroupName: string
-//   datePickerName: Date
-//   dateRangePickerName: yup.object()
-//     .shape({
-//       startDate: yup.date().typeError('Must pick a start date'),
-//       endDate: yup.date().typeError('Must pick an end date'),
-//     })
-//   incrementorName: number
-// }
+interface IFormData {
+  inputName: string
+  textAreaName: string
+  checkboxName: boolean
+}
 
 const DefaultForm = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm({
@@ -69,7 +55,7 @@ const DefaultForm = () => {
   // console.log('watch(checkboxName) :>> ', watch('checkboxName'))
   // console.log('errors :>> ', errors)
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IFormData) => {
     console.log('onSubmit', data)
   }
 
