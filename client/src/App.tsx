@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-
 import axios from 'axios'
 
 const App = () => {
@@ -19,7 +18,7 @@ const App = () => {
 
   return (
     <div>
-      <p>{text} built static app. after rebuild test</p>
+      <p>{text} built static faster more speed</p>
     </div>
   )
 }

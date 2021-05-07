@@ -13,14 +13,14 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api', router)
 app.get('/api/health-check', (_, response) => response.status(200).send('OK'))
 
-// serve static files from frontend
+// serve static files from client
 const isDev = path.dirname(__dirname) === 'server'
-const frontendBuild = `${isDev ? '' : '../'}../frontend/dist`
-app.use(express.static(path.join(__dirname, frontendBuild)))
+const clientBuild = `${isDev ? '' : '../'}../client/dist`
+app.use(express.static(path.join(__dirname, clientBuild)))
 
 // catch all handler
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, frontendBuild, 'index.html'))
+  res.sendFile(path.join(__dirname, clientBuild, 'index.html'))
 })
 
 const port = process.env.PORT || 4001
