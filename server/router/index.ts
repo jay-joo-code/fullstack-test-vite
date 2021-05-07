@@ -12,7 +12,7 @@ const router: Router = express.Router()
 
 router.get('/ping', (req, res) => {
   try {
-    res.send('pong')
+    res.send('pong afte rebuild test')
   } catch (error) {
     res.status(500).send(error)
   }

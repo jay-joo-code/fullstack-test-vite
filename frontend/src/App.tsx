@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div>
-      <p>{text} built static app</p>
+      <p>{text} built static app. after rebuild test</p>
     </div>
   )
 }
