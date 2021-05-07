@@ -19,7 +19,7 @@
     "start": "node server/build/app.js",
     "build": "npm run build:frontend && npm run build:server",
     "build:frontend": "cd frontend && npm run build && cd ..",
-    "build:server": "cd server && npm run tsc && cd ..",
+    "build:server": "cd server && npm run build && cd ..",
     "postinstall": "npm run install:frontend && npm run install:server",
     "install:frontend": "cd frontend && npm install && cd ..",
     "install:server": "cd server && npm install && cd ..",
