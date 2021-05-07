@@ -5,7 +5,7 @@ import Icon from '../icon'
 import { FlexRow } from '../layout'
 import theme from 'src/app/theme'
 import { hexToRGBA } from 'src/util/colors'
-import Text from '../text'
+import Text from '../fonts/Text'
 
 const customStyles = {
   content: {

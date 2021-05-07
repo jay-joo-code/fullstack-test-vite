@@ -1,18 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from 'src/assets/svgs/logo.svg'
 import styled from 'styled-components'
+import Text from '../fonts/Text'
 
 const Logo = () => {
   return (
     <Link to='/'>
-      <StyledLogo src={logo} />
+      <StyledLogo variant='h3'>bunjang</StyledLogo>
     </Link>
   )
 }
 
-const StyledLogo = styled.img`
-  
+const StyledLogo = styled(Text)`
+  color: ${props => props.theme.brand};
 `
 
 export default Logo

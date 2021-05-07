@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from '.'
 import { Button } from '../buttons'
 import { FlexRow, Space } from '../layout'
-import Text from '../text'
+import Text from '../fonts/Text'
 
 interface ConfirmationModalProps {
   isOpen: boolean

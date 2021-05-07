@@ -1,6 +1,5 @@
 import moment from 'moment'
 import React, { useState, InputHTMLAttributes, forwardRef } from 'react'
-
 import {
   DateRangePicker as DateRangePickerAirbnb, DayPickerSingleDateController, isInclusivelyAfterDay
 } from 'react-dates'
@@ -11,139 +10,16 @@ import theme from 'src/app/theme'
 import useIsMobile from 'src/hooks/useIsMobile'
 import Icon from '../icon'
 import { FlexRow } from '../layout'
-import Text from '../text'
-import Label from '../text/Label'
+import Text from '../fonts/Text'
+import Label from '../fonts/Label'
 import './datepicker.less'
 import {
-  CheckboxContainer,
-  InputArea,
-  InputContainer,
   RadioGroupContainer,
   RadioLabel,
-  StyledCheckbox,
   StyledDateRangeWrapper,
   StyledDateWrapper,
-  StyledInput,
-  StyledSelect, StyledTextArea,
-  TextAreaContainer
+  StyledSelect
 } from './styles'
-
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name?: string
-  label?: string
-  value?: any
-  placeholder?: string
-  onEnterPress?: () => void
-  autoFocus?: boolean
-  disabled?: boolean
-  width?: number
-  fullWidth?: boolean
-  error?: string
-  type?: string
-}
-
-const ErrorMsg = (props: { error?: string }) => {
-  return (
-    <>
-      {props.error && <Text
-        variant='h6'
-        color={theme.danger}
-        fontWeight={400}
-      >{props.error}</Text>}
-    </>
-  )
-}
-
-export const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && props.onEnterPress) {
-      props.onEnterPress()
-    }
-  }
-
-  return (
-    <InputContainer>
-      <Label {...props}>{props.label}</Label>
-      <InputArea>
-        <StyledInput
-          {...props}
-          ref={ref}
-          onKeyDown={handleKeyDown}
-          error={props.error != null}
-        />
-      </InputArea>
-      <ErrorMsg error={props.error} />
-    </InputContainer>
-  )
-})
-
-export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string
-  checked?: boolean
-  onChange?: React.FormEventHandler<HTMLInputElement>
-  name?: string
-  error?: string
-}
-
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  return (
-    <div>
-      <CheckboxContainer>
-        <StyledCheckbox>
-          <input
-            {...props}
-            ref={ref}
-            type='checkbox'
-            onChange={props.onChange}
-            checked={props.checked}
-          />
-          <span />
-        </StyledCheckbox>
-        <Label
-          noMargin={true}
-          {...props}
-        >
-          {props.label}
-        </Label>
-      </CheckboxContainer>
-      <ErrorMsg error={props.error} />
-    </div>
-  )
-})
-
-export interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
-  name?: string
-  label?: string
-  value?: any
-  placeholder?: string
-  onEnterPress?: () => void
-  autoFocus?: boolean
-  disabled?: boolean
-  width?: number
-  fullWidth?: boolean
-  error?: string
-  type?: string
-  style?: any
-  maxRows?: number
-  minRows?: number
-  isDefaultHiddenBorders?: boolean
-}
-
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-  return (
-    <TextAreaContainer>
-      <Label {...props}>{props.label}</Label>
-      <div>
-        <StyledTextArea
-          {...props}
-          ref={ref}
-          error={props.error != null}
-        />
-      </div>
-      <ErrorMsg error={props.error} />
-    </TextAreaContainer>
-  )
-})
 
 export interface IOption {
   label: string

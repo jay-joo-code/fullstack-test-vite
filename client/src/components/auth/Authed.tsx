@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import Avatar from '../avatar'
 import Icon from '../icon'
 import { FlexRow, Space } from '../layout'
-import Text from '../text'
+import Text from '../fonts/Text'
 
 interface AuthedProps {
   userPhotoSrc: string

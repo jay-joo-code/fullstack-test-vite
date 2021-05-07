@@ -1,6 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 
+interface LabelProps {
+  children: React.ReactNode
+  disabled?: boolean
+  noMargin?: boolean
+}
+
+const Label = ({ children, ...rest }: LabelProps) => {
+  return (
+    <StyledLabel {...rest}>
+      {children}
+    </StyledLabel>
+  )
+}
+
 interface StyledLabelProps {
   disabled?: boolean
   noMargin?: boolean
@@ -21,19 +35,5 @@ const StyledLabel = styled.label<StyledLabelProps>`
   // noMargin
   margin-bottom: ${(props) => props.noMargin && '0'};
 `
-
-interface LabelProps {
-  children: React.ReactNode
-  disabled?: boolean
-  noMargin?: boolean
-}
-
-const Label = ({ children, ...rest }: LabelProps) => {
-  return (
-    <StyledLabel {...rest}>
-      {children}
-    </StyledLabel>
-  )
-}
 
 export default Label

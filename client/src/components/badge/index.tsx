@@ -1,6 +1,7 @@
+
 import React from 'react'
 import styled from 'styled-components'
-import Text from '../text'
+import Text from '../fonts/Text'
 
 interface BadgeProps extends ContainerProps {
   label: string

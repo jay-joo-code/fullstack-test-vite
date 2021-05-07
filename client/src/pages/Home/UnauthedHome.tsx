@@ -6,7 +6,7 @@ import googleSignin from 'src/assets/services/google-signin@2x.png'
 import { Button } from 'src/components/buttons'
 import { HoriBar } from 'src/components/horiBar'
 import { FlexColumn, Space } from 'src/components/layout'
-import Text from 'src/components/text'
+import Text from 'src/components/fonts/Text'
 import useRouter from 'src/hooks/useRouter'
 import { RootState } from 'src/types/redux'
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FlexRow, Space } from '.'
 import Icon from '../icon'
 import styled from 'styled-components'
-import Text from '../text'
+import Text from '../fonts/Text'
 
 const Container = styled.div`
   margin-bottom: 1rem;

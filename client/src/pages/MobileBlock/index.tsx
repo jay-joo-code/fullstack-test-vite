@@ -1,5 +1,5 @@
 import React from 'react'
-import Text from 'src/components/text'
+import Text from 'src/components/fonts/Text'
 import styled from 'styled-components'
 
 const Container = styled.div`

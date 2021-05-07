@@ -1,5 +1,6 @@
+
 import React from 'react'
-import Text from '../text'
+import Text from '../fonts/Text'
 import styled from 'styled-components'
 import OutsideClickListener from '../layout/OutsideClickListener'
 import { FlexRow } from '../layout'

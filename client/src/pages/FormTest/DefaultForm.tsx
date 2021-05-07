@@ -2,95 +2,108 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from 'src/components/buttons'
-import { Checkbox, HookedDatePicker, HookedDateRangePicker, HookedIncrementor, HookedRadioGroup, HookedSelect, Input, TextArea } from 'src/components/formElements'
+import Input from 'src/components/formElements/Input'
+import Textarea from 'src/components/formElements/Textarea'
+import Checkbox from 'src/components/formElements/Checkbox'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
-  textAreaName: yup.string().required('This is a required field'),
+  inputNameTwo: yup.string().required('This is a required field'),
+  textareaName: yup.string().required('This is a required field'),
   checkboxName: yup.boolean().oneOf([true], 'Must check this checkbox'),
-  selectName: yup.object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required(),
-    })
-    .typeError('Must select an option'),
-  radioGroupName: yup.string().required('Must pick an option'),
-  datePickerName: yup.date().typeError('Must pick a date'),
-  dateRangePickerName: yup.object()
-    .shape({
-      startDate: yup.date().typeError('Must pick a start date'),
-      endDate: yup.date().typeError('Must pick an end date'),
-    })
-    .typeError('Must select a date range')
-    .required('Must select a date range'),
-  incrementorName: yup.number().min(3, 'Minimum 3 required'),
+  // selectName: yup.object()
+  //   .shape({
+  //     label: yup.string().required(),
+  //     value: yup.string().required(),
+  //   })
+  //   .typeError('Must select an option'),
+  // radioGroupName: yup.string().required('Must pick an option'),
+  // datePickerName: yup.date().typeError('Must pick a date'),
+  // dateRangePickerName: yup.object()
+  //   .shape({
+  //     startDate: yup.date().typeError('Must pick a start date'),
+  //     endDate: yup.date().typeError('Must pick an end date'),
+  //   })
+  //   .typeError('Must select a date range')
+  //   .required('Must select a date range'),
+  // incrementorName: yup.number().min(3, 'Minimum 3 required'),
 })
 
-interface IData {
-  inputName: string
-  textAreaName: string
-  checkboxName: boolean
-  selectName: yup.object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required(),
-    })
-    .typeError('Must select an option'),
-  radioGroupName: string
-  datePickerName: Date
-  dateRangePickerName: yup.object()
-    .shape({
-      startDate: yup.date().typeError('Must pick a start date'),
-      endDate: yup.date().typeError('Must pick an end date'),
-    })
-  incrementorName: number
-}
+// interface IData {
+//   inputName: string
+//   textAreaName: string
+//   checkboxName: boolean
+//   selectName: yup.object()
+//     .shape({
+//       label: yup.string().required(),
+//       value: yup.string().required(),
+//     })
+//     .typeError('Must select an option'),
+//   radioGroupName: string
+//   datePickerName: Date
+//   dateRangePickerName: yup.object()
+//     .shape({
+//       startDate: yup.date().typeError('Must pick a start date'),
+//       endDate: yup.date().typeError('Must pick an end date'),
+//     })
+//   incrementorName: number
+// }
 
 const DefaultForm = () => {
-  const { register, control, handleSubmit, watch, formState: { errors }, setValue } = useForm({
+  const { register, handleSubmit, formState: { errors }, watch } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      inputName: 'default text',
-      textAreaName: 'default text',
-      checkboxName: false,
-      selectName: null,
-      radioGroupName: null,
-      datePickerName: null,
-      dateRangePickerName: null,
-      incrementorName: 1,
-    },
+    // defaultValues: {
+    //   inputName: 'default text',
+    //   textAreaName: 'default text',
+    //   checkboxName: false,
+    //   selectName: null,
+    //   radioGroupName: null,
+    //   datePickerName: null,
+    //   dateRangePickerName: null,
+    //   incrementorName: 1,
+    // },
   })
 
-  // console.log('errors :>> ', errors)
-  // console.log(watch('incrementorName'))
+  console.log('form rerender')
+  console.log('watch(checkboxName) :>> ', watch('checkboxName'))
+  console.log('errors :>> ', errors)
 
-  const onSubmit = (data, event) => {
-    event.preventDefault()
-    console.log('data', data)
+  const onSubmit = (data) => {
+    console.log('onSubmit', data)
   }
 
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          name='inputName'
+          {...register('inputName')}
           label='inputName'
-          ref={register}
           error={errors.inputName?.message}
           fullWidth
         />
-        <TextArea
-          name='textAreaName'
-          label='textAreaName'
-          ref={register}
-          error={errors.textAreaName?.message}
+        <Input
+          {...register('inputNameTwo')}
+          label='inputNameTwo'
+          error={errors.inputNameTwo?.message}
           fullWidth
+        />
+         <Textarea
+          {...register('textareaName')}
+          label='textAreaName'
+          error={errors.textareaName?.message}
           minRows={3}
           maxRows={5}
         />
+        <input {...register('checkboxName')} type='checkbox' />
+        {/* <Checkbox
+          {...register('checkboxName')}
+          label='checkboxName'
+          error={errors.checkboxName?.message}
+        /> */}
+        {/*
         <Checkbox
           name='checkboxName'
           label='checkboxName'
@@ -133,7 +146,7 @@ const DefaultForm = () => {
           control={control}
           label='incrementorName'
           error={errors.incrementorName?.message}
-        />
+        /> */}
         <FlexRow justifyEnd>
           <Button
             label='Submit'
