@@ -97,6 +97,8 @@ const DefaultForm = () => {
           minRows={3}
           maxRows={5}
         />
+        {/* TODO: since ref isn't being pushed to custom Checkbox components, react-hook-form isn't working properly */}
+        {/* try forwardRef with the custom Checkbox component */}
         <input {...register('checkboxName')} type='checkbox' />
         {/* <Checkbox
           {...register('checkboxName')}
