@@ -22,8 +22,6 @@ const Input = (props: InputProps) => {
     }
   }
 
-  console.log('input props :>> ', props)
-
   return (
     <InputContainer>
       <Label {...props}>{props.label}</Label>

@@ -11,7 +11,6 @@ import * as yup from 'yup'
 
 const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
-  inputNameTwo: yup.string().required('This is a required field'),
   textareaName: yup.string().required('This is a required field'),
   checkboxName: yup.boolean().oneOf([true], 'Must check this checkbox'),
   // selectName: yup.object()
@@ -67,9 +66,8 @@ const DefaultForm = () => {
     // },
   })
 
-  console.log('form rerender')
-  console.log('watch(checkboxName) :>> ', watch('checkboxName'))
-  console.log('errors :>> ', errors)
+  // console.log('watch(checkboxName) :>> ', watch('checkboxName'))
+  // console.log('errors :>> ', errors)
 
   const onSubmit = (data) => {
     console.log('onSubmit', data)
@@ -84,12 +82,6 @@ const DefaultForm = () => {
           error={errors.inputName?.message}
           fullWidth
         />
-        <Input
-          {...register('inputNameTwo')}
-          label='inputNameTwo'
-          error={errors.inputNameTwo?.message}
-          fullWidth
-        />
          <Textarea
           {...register('textareaName')}
           label='textAreaName'
@@ -97,21 +89,12 @@ const DefaultForm = () => {
           minRows={3}
           maxRows={5}
         />
-        {/* TODO: since ref isn't being pushed to custom Checkbox components, react-hook-form isn't working properly */}
-        {/* try forwardRef with the custom Checkbox component */}
-        <input {...register('checkboxName')} type='checkbox' />
-        {/* <Checkbox
+        <Checkbox
           {...register('checkboxName')}
           label='checkboxName'
           error={errors.checkboxName?.message}
-        /> */}
-        {/*
-        <Checkbox
-          name='checkboxName'
-          label='checkboxName'
-          ref={register}
-          error={errors.checkboxName?.message}
         />
+        {/*
         <HookedSelect
           name='selectName'
           control={control}
