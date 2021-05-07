@@ -29,5 +29,8 @@
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx --fix"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "14.16.1"
+  }
 }
