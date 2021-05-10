@@ -46,7 +46,7 @@
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev && cd ..",
     "dev:server": "cd server && npm run dev && cd ..",
-    "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx --fix"
+    "lint": "eslint . --ext .ts --ext .tsx --fix"
   },
   "author": "",
   "engines": {

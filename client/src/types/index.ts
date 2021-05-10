@@ -1,7 +1,5 @@
-
-export interface TaskDoc {
+export interface IDocument {
   _id: string
-  name: string
-  complete: boolean
-  userId: string
+  updatedAt: Date
+  createdAt: Date
 }

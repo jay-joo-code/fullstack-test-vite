@@ -5,6 +5,8 @@ import { Button } from 'src/components/buttons'
 import Input from 'src/components/formElements/Input'
 import Textarea from 'src/components/formElements/Textarea'
 import Checkbox from 'src/components/formElements/Checkbox'
+import { HookedSelect } from 'src/components/formElements/Select'
+import { HookedRadioGroup } from 'src/components/formElements/RadioGroup'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import * as yup from 'yup'
@@ -13,13 +15,11 @@ const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
   textareaName: yup.string().required('This is a required field'),
   checkboxName: yup.boolean().oneOf([true], 'Must check this checkbox'),
-  // selectName: yup.object()
-  //   .shape({
-  //     label: yup.string().required(),
-  //     value: yup.string().required(),
-  //   })
-  //   .typeError('Must select an option'),
-  // radioGroupName: yup.string().required('Must pick an option'),
+  selectName: yup.object()
+    .required('Must select an option'),
+  radioGroupName: yup.string()
+    .typeError('Must choose an option')
+    .required('Must choose an option'),
   // datePickerName: yup.date().typeError('Must pick a date'),
   // dateRangePickerName: yup.object()
   //   .shape({
@@ -38,7 +38,7 @@ interface IFormData {
 }
 
 const DefaultForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm({
+  const { register, handleSubmit, formState: { errors }, control } = useForm({
     resolver: yupResolver(schema),
     // defaultValues: {
     //   inputName: 'default text',
@@ -52,7 +52,7 @@ const DefaultForm = () => {
     // },
   })
 
-  // console.log('watch(checkboxName) :>> ', watch('checkboxName'))
+  // console.log('watch(radioGroupName) :>> ', watch('radioGroupName'))
   // console.log('errors :>> ', errors)
 
   const onSubmit = (data: IFormData) => {
@@ -80,7 +80,6 @@ const DefaultForm = () => {
           label='checkboxName'
           error={errors.checkboxName?.message}
         />
-        {/*
         <HookedSelect
           name='selectName'
           control={control}
@@ -92,8 +91,7 @@ const DefaultForm = () => {
           error={errors.selectName?.message}
         />
         <HookedRadioGroup
-          name='radioGroupName'
-          ref={register}
+          {...register('radioGroupName')}
           error={errors.radioGroupName?.message}
           options={[
             { value: 'chocolate', label: 'Chocolate' },
@@ -101,6 +99,7 @@ const DefaultForm = () => {
             { value: 'vanilla', label: 'Vanilla' },
           ]}
         />
+        {/*
         <HookedDatePicker
           name='datePickerName'
           control={control}

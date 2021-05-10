@@ -108,11 +108,13 @@ const useCustomMutation = <T>({
         },
 
         // If the mutation fails, use the value returned from onMutate to roll back
-        onError: (err, newVariables, rollback: any) => {
+        onError: (err: any, newVariables: any, rollback: any) => {
           if (rollback) {
             const rollbackData = rollback()
             return rollbackData
           }
+          if (err) return {}
+          return {}
         },
 
         // Always refetch after error or success:

@@ -1,23 +1,82 @@
+import React, { forwardRef, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
-import ReactSelect, { CommonProps } from 'react-select'
+import ErrorMsg from 'src/components/fonts/ErrorMsg'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
-export const StyledSelect = styled(ReactSelect)<CommonProps<any, false, any>>`
-  & * {
-    cursor: pointer !important;
-    line-height: 1.5 !important;
+interface IOption {
+  label: string
+  value: any
+}
+
+interface RadioGroupProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
+  error?: string
+  value: any
+  setValue: (newValue: string) => void
+  options: IOption[]
+}
+
+export const RadioGroup = (props: RadioGroupProps) => {
+  const handleRadioClick = (e: React.MouseEvent<HTMLInputElement>, value: string) => {
+    if ((e.target as HTMLInputElement).checked) {
+      if (value === props.value) {
+        // already checked, uncheck
+        props.setValue('')
+      } else {
+        // check
+        props.setValue(value)
+      }
+    }
   }
 
-  & .css-1okebmr-indicatorSeparator {
-    display: none;
-  }
-`
+  return (
+    <RadioGroupContainer>
+      {props.options.map(({ value, label }) => (
+        <RadioLabel key={value}>
+          <input
+            type='radio'
+            value={value}
+            checked={props.value === value}
+            onClick={(e) => handleRadioClick(e, value)}
+          />
+          <span>{label}</span>
+        </RadioLabel>
+      ))}
+    </RadioGroupContainer>
+  )
+}
 
-export const RadioGroupContainer = styled.div`
+interface HookedRadioGroupProps extends UseFormRegisterReturn {
+  options: IOption[]
+  error: string | undefined
+}
+
+export const HookedRadioGroup = forwardRef<HTMLInputElement, HookedRadioGroupProps>((props: HookedRadioGroupProps, ref) => {
+  return (
+    <RadioGroupContainer>
+      {props.options.map(({ value, label }) => (
+        <RadioLabel key={value}>
+          <input
+            {...props}
+            ref={ref}
+            type='radio'
+          />
+          <span>{label}</span>
+        </RadioLabel>
+      ))}
+      <ErrorMsg error={props.error} />
+    </RadioGroupContainer>
+  )
+})
+
+HookedRadioGroup.displayName = 'HookedRadioGroup'
+
+const RadioGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export const RadioLabel = styled.label`
+const RadioLabel = styled.label`
   z-index: 0;
   position: relative;
   display: inline-block;
@@ -148,38 +207,5 @@ export const RadioLabel = styled.label`
 
   & > input:disabled + span::after {
     background-color: currentColor;
-  }
-`
-
-export const StyledDateWrapper = styled.div`
-  & .CalendarMonth_caption {
-    padding-bottom: 50px !important;
-  }
-
-  & .CalendarMonth_table {
-    td {
-      vertical-align: middle;
-    }
-  }
-
-  & .CalendarDay__selected {
-    background: ${(props) => props.theme.brand};
-    border-color: ${(props) => props.theme.brand};
-  }
-`
-
-export const StyledDateRangeWrapper = styled.div`
-  & .DateRangePicker {
-    width: 100%;
-  }
-
-  & .DateInput {
-    width: 105px;
-  }
-
-  & input {
-    cursor: pointer !important;
-    font-size: .8rem;
-    font-weight: 400;
   }
 `

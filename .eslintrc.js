@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'no-use-before-define': 'off',
+    'no-undef': 'off',
     '@typescript-eslint/no-use-before-define': ['off'],
     'comma-dangle': ['warn', {
       arrays: 'always-multiline',

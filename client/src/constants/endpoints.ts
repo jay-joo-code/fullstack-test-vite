@@ -1,3 +1,3 @@
 export default {
-  CREATE_TASK: '/task'
+  CREATE_TASK: '/task',
 }

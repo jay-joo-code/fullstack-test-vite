@@ -1,6 +1,6 @@
-import { Document } from 'mongoose'
+import { IDocument } from '.'
 
-export interface IUserDoc extends Document {
+export interface IUser extends IDocument {
   authProvider: 'google'
   providerId?: string
   providerData?: any

@@ -8,21 +8,21 @@ import { showToast } from 'src/util/toast'
 const defaults = {
   baseURL: '/api',
   headers: () => ({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }),
   error: {
     code: 'INTERNAL_ERROR',
     message: 'Something went wrong. Please check your internet connection or contact our support.',
     status: 503,
-    data: {}
-  }
+    data: {},
+  },
 }
 
 const listener = () => {
   const { accessToken } = store.getState().authState
   defaults.headers = () => ({
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`
+    Authorization: `Bearer ${accessToken}`,
   })
 }
 
@@ -40,7 +40,7 @@ const api = (
       headers: defaults.headers(),
       params: method === 'get' ? variables : undefined,
       data: method !== 'get' ? variables : undefined,
-      paramsSerializer: objectToQueryString
+      paramsSerializer: objectToQueryString,
     })
       .then((response) => {
         resolve(response.data)

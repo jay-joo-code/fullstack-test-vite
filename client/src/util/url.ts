@@ -4,7 +4,7 @@ import omit from 'lodash/omit'
 export const queryStringToObject = (str: string, options = {}) =>
   queryString.parse(str, {
     arrayFormat: 'bracket',
-    ...options
+    ...options,
   })
 
 export const objectToQueryString = (obj: any) => {
@@ -25,5 +25,5 @@ export const omitFromQueryString = (str: string, keys) =>
 export const addToQueryString = (str: string, fields: any) =>
   objectToQueryString({
     ...queryStringToObject(str),
-    ...fields
+    ...fields,
   })
