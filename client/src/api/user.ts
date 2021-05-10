@@ -1,35 +1,18 @@
 import { useSelector } from 'react-redux'
 import useCustomQuery from 'src/hooks/useCustomQuery'
-import { IPlanDoc } from 'src/types/plan'
-import { RootState } from 'src/types/redux'
-import { IUserDoc } from 'src/types/user'
+import { IUser } from 'src/types/user.type'
 
 export const fetchCurrentUserConfig = () => ({
   url: '/private/user/current',
 })
 
-export const fetchCurrentUserPlansConfig = () => ({
-  url: '/private/user/plans',
-  options: {
-    retry: false,
-  },
-})
-
 export const useCurrentUser = () => {
-  const { data: currentUser, ...rest } = useCustomQuery<IUserDoc>(fetchCurrentUserConfig())
+  const { data: currentUser, ...rest } = useCustomQuery<IUser>(fetchCurrentUserConfig())
   const { accessToken } = useSelector((state: RootState) => state.authState)
 
   return {
     ...rest,
     currentUser: accessToken ? currentUser : null,
-  }
-}
-
-export const useCurrentUserPlans = () => {
-  const { data: plans, ...rest } = useCustomQuery<IPlanDoc[]>(fetchCurrentUserPlansConfig())
-  return {
-    ...rest,
-    plans,
   }
 }
 
