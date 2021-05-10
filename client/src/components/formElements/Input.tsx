@@ -1,4 +1,5 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { forwardRef, InputHTMLAttributes } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 import Label from '../fonts/Label'
@@ -12,7 +13,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string
   autoFocus?: boolean
   error?: string
-  type?: string
 }
 
 const Input = (props: InputProps) => {
@@ -37,6 +37,31 @@ const Input = (props: InputProps) => {
   )
 }
 
+interface HookedInputProps extends UseFormRegisterReturn {
+  width?: number
+  fullWidth?: boolean
+  label: string
+  error?: string
+}
+
+export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props: HookedInputProps, ref) => {
+  return (
+    <InputContainer>
+      <Label {...props}>{props.label}</Label>
+      <div>
+        <StyledInput
+          {...props}
+          ref={ref}
+          error={props.error != null}
+        />
+      </div>
+      <ErrorMsg error={props.error} />
+    </InputContainer>
+  )
+})
+
+HookedInput.displayName = 'HookedInput'
+
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,7 +73,7 @@ interface StyledInputProps {
   error?: boolean
 }
 
-export const StyledInput = styled.input<StyledInputProps>`
+const StyledInput = styled.input<StyledInputProps>`
   flex: 1 0 auto;
   background: ${(props) => props.theme.bg};
   font-weight: 400;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import ResizedTextarea, { TextareaAutosizeProps } from 'react-textarea-autosize'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
 import Label from 'src/components/fonts/Label'
@@ -24,6 +24,11 @@ const Textarea = (props: TextareaProps) => {
     </div>
   )
 }
+
+export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props: HookedInputProps, ref) => {
+
+})
+
 
 const StyledTextarea = styled(ResizedTextarea)<TextareaProps>`
   width: 100%;

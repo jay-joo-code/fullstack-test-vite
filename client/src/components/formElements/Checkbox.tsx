@@ -1,16 +1,40 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, InputHTMLAttributes } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 import Label from '../fonts/Label'
 
-interface CheckboxProps extends UseFormRegisterReturn {
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string
+}
+
+const Checkbox = (props: CheckboxProps) => {
+  return (
+    <FlexRow alignCenter>
+      <StyledCheckbox>
+        <input
+          {...props}
+          type='checkbox'
+        />
+        <span />
+      </StyledCheckbox>
+      <Label
+        noMargin={true}
+        {...props}
+      >
+        {props.label}
+      </Label>
+    </FlexRow>
+  )
+}
+
+interface HookedCheckboxProps extends UseFormRegisterReturn {
   label: string
   error?: string
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props: CheckboxProps, ref) => {
+export const HookedCheckbox = forwardRef<HTMLInputElement, HookedCheckboxProps>((props: HookedCheckboxProps, ref) => {
   return (
     <div>
       <FlexRow alignCenter>
@@ -34,7 +58,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props: CheckboxPro
   )
 })
 
-Checkbox.displayName = 'Checkbox'
+HookedCheckbox.displayName = 'HookedCheckbox'
 
 const StyledCheckbox = styled.label`
   z-index: 0;

@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from 'src/components/buttons'
-import Input from 'src/components/formElements/Input'
-import Textarea from 'src/components/formElements/Textarea'
-import Checkbox from 'src/components/formElements/Checkbox'
-import { HookedSelect } from 'src/components/formElements/Select'
+import Checkbox, { HookedCheckbox } from 'src/components/formElements/Checkbox'
+import Input, { HookedInput } from 'src/components/formElements/Input'
 import { HookedRadioGroup } from 'src/components/formElements/RadioGroup'
+import { HookedSelect } from 'src/components/formElements/Select'
+import Textarea from 'src/components/formElements/Textarea'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import * as yup from 'yup'
@@ -38,7 +38,7 @@ interface IFormData {
 }
 
 const DefaultForm = () => {
-  const { register, handleSubmit, formState: { errors }, control } = useForm({
+  const { register, handleSubmit, formState: { errors }, watch, control } = useForm({
     resolver: yupResolver(schema),
     // defaultValues: {
     //   inputName: 'default text',
@@ -52,34 +52,68 @@ const DefaultForm = () => {
     // },
   })
 
-  // console.log('watch(radioGroupName) :>> ', watch('radioGroupName'))
+  console.log('watch(inputName) :>> ', watch('inputName'))
   // console.log('errors :>> ', errors)
 
   const onSubmit = (data: IFormData) => {
     console.log('onSubmit', data)
   }
 
+  // local states
+  const [inputValue, setInputValue] = useState<string>('')
+  const [textareaValue, setTextareaValue] = useState<string>('')
+  const [isChecked, setIsChecked] = useState<boolean>(false)
+
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        {/* local state */}
         <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          fullWidth
+        />
+
+        {/* react-hook-form */}
+        <HookedInput
           {...register('inputName')}
           label='inputName'
           error={errors.inputName?.message}
           fullWidth
         />
-         <Textarea
-          {...register('textareaName')}
-          label='textAreaName'
+
+        {/* local state */}
+        <Textarea
+          value={textareaValue}
+          onChange={(e) => setTextareaValue(e.target.value)}
           error={errors.textareaName?.message}
           minRows={3}
           maxRows={5}
         />
+
+        {/* react-hook-form */}
+        <Textarea
+          {...register('textareaName')}
+          label='textAreaName'
+          minRows={3}
+          maxRows={5}
+        />
+
+        {/* local state */}
         <Checkbox
+          label='checkboxName'
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+        />
+
+        {/* react-hook-form */}
+        <HookedCheckbox
           {...register('checkboxName')}
           label='checkboxName'
           error={errors.checkboxName?.message}
         />
+
+        {/* react-hook-form */}
         <HookedSelect
           name='selectName'
           control={control}
@@ -90,6 +124,8 @@ const DefaultForm = () => {
           ]}
           error={errors.selectName?.message}
         />
+
+        {/* react-hook-form */}
         <HookedRadioGroup
           {...register('radioGroupName')}
           error={errors.radioGroupName?.message}
