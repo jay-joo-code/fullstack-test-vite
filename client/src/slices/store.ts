@@ -19,7 +19,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [...getDefaultMiddleware({ thunk: false }), ...loggerMiddleware],
+  middleware: [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), ...loggerMiddleware],
   devTools: process.env.NODE_ENV !== 'production',
 })
 

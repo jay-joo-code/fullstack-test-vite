@@ -1,5 +1,5 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
@@ -29,19 +29,20 @@ const Checkbox = (props: CheckboxProps) => {
   )
 }
 
-interface HookedCheckboxProps extends UseFormRegisterReturn {
+interface HookedCheckboxProps {
   label: string
-  error?: string
+  name: string
 }
 
 export const HookedCheckbox = forwardRef<HTMLInputElement, HookedCheckboxProps>((props: HookedCheckboxProps, ref) => {
+  const { register, formState: { errors } } = useFormContext()
+
   return (
     <div>
       <FlexRow alignCenter>
         <StyledCheckbox>
           <input
-            {...props}
-            ref={ref}
+            {...register(props.name)}
             type='checkbox'
           />
           <span />
@@ -53,7 +54,7 @@ export const HookedCheckbox = forwardRef<HTMLInputElement, HookedCheckboxProps>(
           {props.label}
         </Label>
       </FlexRow>
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
 })

@@ -67,7 +67,7 @@ export const routes: IRoute[] = [
     isPublicNav: false,
     isPrivateNav: false,
     isPrivateRoute: false,
-    isDesktopOnly: true,
+    isDesktopOnly: false,
   },
   {
     path: '/',

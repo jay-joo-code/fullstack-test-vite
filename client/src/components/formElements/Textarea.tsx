@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 import ResizedTextarea, { TextareaAutosizeProps } from 'react-textarea-autosize'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
 import Label from 'src/components/fonts/Label'
@@ -25,10 +26,29 @@ const Textarea = (props: TextareaProps) => {
   )
 }
 
-export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props: HookedInputProps, ref) => {
+interface HookedInputProps extends UseFormRegisterReturn {
+  maxRows?: number
+  minRows?: number
+  label?: string
+  error?: string
+}
 
+export const HookedTextarea = forwardRef<HTMLTextAreaElement, HookedInputProps>((props: HookedInputProps, ref) => {
+  return (
+    <div>
+      <Label {...props}>{props.label}</Label>
+      <div>
+        <StyledTextarea
+          {...props}
+          ref={ref}
+        />
+      </div>
+      <ErrorMsg error={props.error} />
+    </div>
+  )
 })
 
+HookedTextarea.displayName = 'HookedTextarea'
 
 const StyledTextarea = styled(ResizedTextarea)<TextareaProps>`
   width: 100%;

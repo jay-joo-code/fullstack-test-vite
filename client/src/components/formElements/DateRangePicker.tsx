@@ -1,94 +1,75 @@
-import moment from 'moment'
-import React, { useState } from 'react'
-import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
-import { Controller } from 'react-hook-form'
-import useIsMobile from 'src/hooks/useIsMobile'
+import React, { useEffect } from 'react'
+import { DateRange, OnChangeProps, RangeWithKey } from 'react-date-range'
+import { useFormContext } from 'react-hook-form'
+import theme from 'src/app/theme'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
-import Label from '../fonts/Label'
-import './datepicker.less'
-import { DateRangePicker as DateRangePickerAirbnb } from 'react-dates'
 
-interface DateRangePickerProps {
-  label: string
-  startDate: Date | undefined
-  endDate: Date | undefined
-  setStartDate: (newDate: any) => void
-  setEndDate: (newDate: any) => void
+interface IRangeProp {
+  selection: RangeWithKey
 }
 
-const DateRangePicker = ({ label, startDate, endDate, setStartDate, setEndDate }: DateRangePickerProps) => {
-  const [focusedInput, setFocusedInput] = useState<string | null>(null)
-  const handleFocusChange = (newFocus) => setFocusedInput(newFocus)
+export interface IDates {
+  startDate?: Date
+  endDate?: Date
+}
 
-  const handleDateChange = ({ startDate: startDateAirbnb, endDate: endDateAirbnb }) => {
-    if (startDateAirbnb) setStartDate(startDateAirbnb.toDate())
-    if (endDateAirbnb) setEndDate(endDateAirbnb.toDate())
+interface DateRangePickerProps {
+  dates: IDates
+  setDates: (newDates: IDates) => void
+}
+
+const DateRangePicker = (props: DateRangePickerProps) => {
+  const handleChange = (range: OnChangeProps) => {
+    props.setDates((range as IRangeProp).selection)
   }
 
-  const isMobile = useIsMobile()
-
   return (
-    <StyledDateRangeWrapper>
-      <Label>{label}</Label>
-      <DateRangePickerAirbnb
-        startDateId='start-date-id'
-        endDateId='end-date-id'
-        startDate={startDate ? moment(startDate) : null}
-        endDate={endDate ? moment(endDate) : null}
-        onDatesChange={handleDateChange}
-        focusedInput={focusedInput}
-        onFocusChange={handleFocusChange}
-        withPortal={isMobile}
-        orientation={isMobile ? 'vertical' : 'horizontal'}
-        readOnly
-      />
-    </StyledDateRangeWrapper>
+    <StyledDateRange
+      onChange={handleChange}
+      moveRangeOnFirstSelection={false}
+      ranges={[{ ...props.dates, key: 'selection' }]}
+      rangeColors={[theme.brand]}
+    />
   )
 }
 
-interface HookedDateRangePickerProps {
+interface HookDateRangePickerProps {
   name: string
-  control: any
-  setValue: Function
-  error?: string
 }
 
-export const HookedDateRangePicker = (props: HookedDateRangePickerProps) => {
+export const HookedDateRangePicker = (props: HookDateRangePickerProps) => {
+  const { register, getValues, setValue, formState: { errors } } = useFormContext()
+
+  useEffect(() => {
+    register(props.name)
+  }, [register])
+
+  const handleChange = (range: OnChangeProps) => {
+    const values = { ...(range as IRangeProp).selection }
+    setValue(props.name, {
+      startDate: values.startDate,
+      endDate: values.endDate,
+    })
+  }
+
   return (
     <div>
-      <Controller
-        name={props.name}
-        control={props.control}
-        render={({ onChange, value }) =>
-          <DateRangePicker
-            label='dateRangePickerName'
-            startDate={value?.startDate}
-            endDate={value?.endDate}
-            setStartDate={(date) => props.setValue('dateRangePickerName', { ...value, startDate: date })}
-            setEndDate={(date) => props.setValue('dateRangePickerName', { ...value, endDate: date })}
-          />
-        }
+      <StyledDateRange
+        onChange={handleChange}
+        moveRangeOnFirstSelection={false}
+        ranges={[{ ...getValues(props.name), key: 'selection' }]}
+        rangeColors={[theme.brand]}
       />
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
 }
 
-const StyledDateRangeWrapper = styled.div`
-  & .DateRangePicker {
-    width: 100%;
-  }
-
-  & .DateInput {
-    width: 105px;
-  }
-
-  & input {
-    cursor: pointer !important;
-    font-size: .8rem;
-    font-weight: 400;
+const StyledDateRange = styled(DateRange)`
+  & .rdrDayToday span:after {
+    background: ${props => props.theme.brand} !important;
+    opacity: .5;
   }
 `
 

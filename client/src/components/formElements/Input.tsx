@@ -1,5 +1,5 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 import Label from '../fonts/Label'
@@ -37,25 +37,26 @@ const Input = (props: InputProps) => {
   )
 }
 
-interface HookedInputProps extends UseFormRegisterReturn {
+interface HookedInputProps {
   width?: number
   fullWidth?: boolean
   label: string
-  error?: string
+  name: string
 }
 
 export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props: HookedInputProps, ref) => {
+  const { register, formState: { errors } } = useFormContext()
+
   return (
     <InputContainer>
       <Label {...props}>{props.label}</Label>
       <div>
         <StyledInput
-          {...props}
-          ref={ref}
-          error={props.error != null}
+          {...register(props.name)}
+          error={errors[props.name] != null}
         />
       </div>
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </InputContainer>
   )
 })

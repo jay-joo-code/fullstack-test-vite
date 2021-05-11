@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useCurrentUser } from 'src/api/user'
 import googleSignin from 'src/assets/services/google-signin@2x.png'
-import { RootState } from 'src/types/redux'
-import Authed from './Authed'
+import AuthedAvatar from './AuthedAvatar'
 
 const Auth = () => {
   const { accessToken } = useSelector((state: RootState) => state.authState)
@@ -12,7 +11,7 @@ const Auth = () => {
   const userPhotoSrc = currentUser?.providerData?.photos[0]?.value
 
   if (accessToken && userPhotoSrc) {
-    return <Authed userPhotoSrc={userPhotoSrc} />
+    return <AuthedAvatar userPhotoSrc={userPhotoSrc} />
   }
 
   return (

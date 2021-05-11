@@ -1,15 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Button } from 'src/components/buttons'
 import Checkbox, { HookedCheckbox } from 'src/components/formElements/Checkbox'
 import Input, { HookedInput } from 'src/components/formElements/Input'
-import { HookedRadioGroup } from 'src/components/formElements/RadioGroup'
-import { HookedSelect } from 'src/components/formElements/Select'
-import Textarea from 'src/components/formElements/Textarea'
+import RadioGroup, { HookedRadioGroup } from 'src/components/formElements/RadioGroup'
+import Select, { HookedSelect, ISelectOption } from 'src/components/formElements/Select'
+import Textarea, { HookedTextarea } from 'src/components/formElements/Textarea'
 import { FlexRow } from 'src/components/layout'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import Datepicker, { HookedDatePicker } from 'src/components/formElements/DatePicker'
+import DateRangePicker, { HookedDateRangePicker, IDates } from 'src/components/formElements/DateRangePicker'
 
 const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
@@ -20,7 +22,7 @@ const schema = yup.object().shape({
   radioGroupName: yup.string()
     .typeError('Must choose an option')
     .required('Must choose an option'),
-  // datePickerName: yup.date().typeError('Must pick a date'),
+  datePickerName: yup.date().typeError('Must pick a date'),
   // dateRangePickerName: yup.object()
   //   .shape({
   //     startDate: yup.date().typeError('Must pick a start date'),
@@ -35,24 +37,31 @@ interface IFormData {
   inputName: string
   textAreaName: string
   checkboxName: boolean
+  selectName: ISelectOption,
+  radioGroupName: string,
+  datePickerName: Date,
+  dateRangePickerName: IDates
 }
 
 const DefaultForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch, control } = useForm({
+  const methods = useForm<IFormData>({
     resolver: yupResolver(schema),
-    // defaultValues: {
-    //   inputName: 'default text',
-    //   textAreaName: 'default text',
-    //   checkboxName: false,
-    //   selectName: null,
-    //   radioGroupName: null,
-    //   datePickerName: null,
-    //   dateRangePickerName: null,
-    //   incrementorName: 1,
-    // },
+    defaultValues: {
+      inputName: 'default text',
+      textAreaName: 'default text',
+      checkboxName: false,
+      selectName: undefined,
+      radioGroupName: undefined,
+      datePickerName: undefined,
+      dateRangePickerName: {
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+    },
   })
+  const { register, handleSubmit, formState: { errors }, watch, control } = methods
 
-  console.log('watch(inputName) :>> ', watch('inputName'))
+  console.log('watch(checkboxName) :>> ', watch('checkboxName'))
   // console.log('errors :>> ', errors)
 
   const onSubmit = (data: IFormData) => {
@@ -63,103 +72,144 @@ const DefaultForm = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const [textareaValue, setTextareaValue] = useState<string>('')
   const [isChecked, setIsChecked] = useState<boolean>(false)
+  const [selected, setSelected] = useState<string>('')
+  const [radioValue, setRadioValue] = useState<string>('')
+  const [datePickerValue, setDatePickerValue] = useState<Date>(new Date())
+  const [dateRangePickerValue, setDateRangePickerValue] = useState<IDates>({
+    startDate: new Date(),
+    endDate: new Date(),
+  })
+
+  // console.log('dateRangePickerValue :>> ', dateRangePickerValue)
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        {/* local state */}
-        <Input
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          fullWidth
-        />
-
-        {/* react-hook-form */}
-        <HookedInput
-          {...register('inputName')}
-          label='inputName'
-          error={errors.inputName?.message}
-          fullWidth
-        />
-
-        {/* local state */}
-        <Textarea
-          value={textareaValue}
-          onChange={(e) => setTextareaValue(e.target.value)}
-          error={errors.textareaName?.message}
-          minRows={3}
-          maxRows={5}
-        />
-
-        {/* react-hook-form */}
-        <Textarea
-          {...register('textareaName')}
-          label='textAreaName'
-          minRows={3}
-          maxRows={5}
-        />
-
-        {/* local state */}
-        <Checkbox
-          label='checkboxName'
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-
-        {/* react-hook-form */}
-        <HookedCheckbox
-          {...register('checkboxName')}
-          label='checkboxName'
-          error={errors.checkboxName?.message}
-        />
-
-        {/* react-hook-form */}
-        <HookedSelect
-          name='selectName'
-          control={control}
-          options={[
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' },
-          ]}
-          error={errors.selectName?.message}
-        />
-
-        {/* react-hook-form */}
-        <HookedRadioGroup
-          {...register('radioGroupName')}
-          error={errors.radioGroupName?.message}
-          options={[
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' },
-          ]}
-        />
-        {/*
-        <HookedDatePicker
-          name='datePickerName'
-          control={control}
-          error={errors.datePickerName?.message}
-        />
-        <HookedDateRangePicker
-          name='dateRangePickerName'
-          control={control}
-          setValue={setValue}
-          error={errors.dateRangePickerName?.message}
-        />
-        <HookedIncrementor
-          name='incrementorName'
-          control={control}
-          label='incrementorName'
-          error={errors.incrementorName?.message}
-        /> */}
-        <FlexRow justifyEnd>
-          <Button
-            label='Submit'
-            type='submit'
+      <FormProvider {...methods} >
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {/* local state */}
+          <Input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            fullWidth
           />
-        </FlexRow>
-      </Form>
+
+          {/* react-hook-form */}
+          <HookedInput
+            label='inputName'
+            name='inputName'
+            fullWidth
+          />
+
+          {/* local state */}
+          <Textarea
+            value={textareaValue}
+            onChange={(e) => setTextareaValue(e.target.value)}
+            minRows={3}
+            maxRows={5}
+          />
+
+          {/* react-hook-form */}
+          <HookedTextarea
+            {...register('textAreaName')}
+            label='textAreaName'
+            minRows={3}
+            maxRows={5}
+          />
+
+          {/* local state */}
+          <Checkbox
+            label='checkboxName'
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+          />
+
+          {/* react-hook-form */}
+          <HookedCheckbox
+            label='checkboxName'
+            name='checkboxName'
+          />
+
+          {/* local state */}
+          <Select
+            value={selected}
+            options={[
+              { value: 'chocolate', label: 'Chocolate' },
+              { value: 'strawberry', label: 'Strawberry' },
+              { value: 'vanilla', label: 'Vanilla' },
+            ]}
+            onChange={(option) => setSelected(option.value)}
+          />
+
+          {/* react-hook-form */}
+          <HookedSelect
+            name='selectName'
+            options={[
+              { value: 'chocolate', label: 'Chocolate' },
+              { value: 'strawberry', label: 'Strawberry' },
+              { value: 'vanilla', label: 'Vanilla' },
+            ]}
+          />
+
+          {/* local state */}
+          <RadioGroup
+            value={radioValue}
+            setValue={(newValue) => setRadioValue(newValue)}
+            options={[
+              { value: 'chocolate', label: 'Chocolate' },
+              { value: 'strawberry', label: 'Strawberry' },
+              { value: 'vanilla', label: 'Vanilla' },
+            ]}
+          />
+
+          {/* react-hook-form */}
+          <HookedRadioGroup
+            name='radioGroupName'
+            options={[
+              { value: 'chocolate', label: 'Chocolate' },
+              { value: 'strawberry', label: 'Strawberry' },
+              { value: 'vanilla', label: 'Vanilla' },
+            ]}
+          />
+
+          {/* local state */}
+          <Datepicker
+            date={datePickerValue}
+            setDate={setDatePickerValue}
+          />
+
+          {/* react-hook-form */}
+          <HookedDatePicker
+            name='datePickerName'
+            control={control}
+            error={errors.datePickerName?.message}
+          />
+
+          {/* local state */}
+          <DateRangePicker
+            dates={dateRangePickerValue}
+            setDates={setDateRangePickerValue}
+          />
+
+          {/* react-hook-form */}
+          <HookedDateRangePicker
+            name='dateRangePickerName'
+          />
+
+          {/*
+          <HookedIncrementor
+            name='incrementorName'
+            control={control}
+            label='incrementorName'
+            error={errors.incrementorName?.message}
+          /> */}
+          <FlexRow justifyEnd>
+            <Button
+              label='Submit'
+              type='submit'
+            />
+          </FlexRow>
+        </Form>
+      </FormProvider>
     </Container>
   )
 }

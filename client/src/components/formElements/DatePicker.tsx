@@ -1,74 +1,76 @@
 import React from 'react'
+import { Calendar, OnChangeProps } from 'react-date-range'
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
+import { Control, Controller } from 'react-hook-form'
 import styled from 'styled-components'
-import { DayPickerSingleDateController, isInclusivelyAfterDay } from 'react-dates'
-import moment from 'moment'
-import { Controller } from 'react-hook-form'
-import ErrorMsg from 'src/components/fonts/ErrorMsg'
-import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
-import './datepicker.less'
+import ErrorMsg from '../fonts/ErrorMsg'
 
 interface DatePickerProps {
-  date: Date | null
-  setDate: (newDate: any) => void
+  date: Date
+  setDate: (date: Date) => void
 }
 
 const DatePicker = (props: DatePickerProps) => {
-  const handleDateChange = (newDate) => {
-    props.setDate(newDate.toDate())
+  const handleChange = (range: OnChangeProps) => {
+    const date = new Date(range as Date)
+    props.setDate(date)
   }
 
   return (
-    <StyledDateWrapper>
-      <DayPickerSingleDateController
-        {...props}
-        onDateChange={handleDateChange}
-        focused={true}
-        date={props.date && moment(props.date)}
-        hideKeyboardShortcutsPanel={true}
-        isOutsideRange={(day) => !isInclusivelyAfterDay(day, moment())}
-      />
-    </StyledDateWrapper>
+    <StyledCalendar
+      date={props.date}
+      onChange={handleChange}
+    />
   )
 }
 
-interface HookedDatePickerProps {
+interface HookDatePickerProps {
   name: string
   control: any
   error?: string
 }
 
-export const HookedDatePicker = (props: HookedDatePickerProps) => {
+export const HookedDatePicker = (props: HookDatePickerProps) => {
   return (
     <div>
       <Controller
         name={props.name}
         control={props.control}
-        render={({ onChange, value }) =>
-          <DatePicker
-            setDate={onChange}
-            date={value}
-          />
-        }
+        render={({ field }) => {
+          return (
+            <StyledCalendar
+              {...field}
+              date={field.value}
+            />
+          )
+        }}
       />
       <ErrorMsg error={props.error} />
     </div>
   )
 }
 
-const StyledDateWrapper = styled.div`
-  & .CalendarMonth_caption {
-    padding-bottom: 50px !important;
+const StyledCalendar = styled(Calendar)`
+  & .rdrDay {
+    color: ${props => props.theme.brand} !important;
   }
-
-  & .CalendarMonth_table {
-    td {
-      vertical-align: middle;
-    }
+  & .rdrSelected {
+    color: ${props => props.theme.brand} !important;
   }
-
-  & .CalendarDay__selected {
-    background: ${(props) => props.theme.brand};
-    border-color: ${(props) => props.theme.brand};
+  & .rdrDayStartPreview {
+    color: ${props => props.theme.brand} !important;
+  }
+  & .rdrDayEndPreview {
+    color: ${props => props.theme.brand} !important;
+  }
+  & .rdrDayToday {
+    color: ${props => props.theme.brand} !important;
+  }
+  & .rdrDayToday span:after {
+    background: ${props => props.theme.brand} !important;
+    opacity: .5;
   }
 `
+
+export default DatePicker

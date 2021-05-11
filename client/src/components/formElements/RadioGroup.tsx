@@ -1,7 +1,7 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
-import { UseFormRegisterReturn } from 'react-hook-form'
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 
 interface IOption {
   label: string
@@ -9,15 +9,15 @@ interface IOption {
 }
 
 interface RadioGroupProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
   error?: string
   value: any
   setValue: (newValue: string) => void
   options: IOption[]
 }
 
-export const RadioGroup = (props: RadioGroupProps) => {
-  const handleRadioClick = (e: React.MouseEvent<HTMLInputElement>, value: string) => {
+const RadioGroup = (props: RadioGroupProps) => {
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = (e.target as HTMLInputElement).value
     if ((e.target as HTMLInputElement).checked) {
       if (value === props.value) {
         // already checked, uncheck
@@ -37,7 +37,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
             type='radio'
             value={value}
             checked={props.value === value}
-            onClick={(e) => handleRadioClick(e, value)}
+            onChange={(e) => handleRadioChange(e)}
           />
           <span>{label}</span>
         </RadioLabel>
@@ -46,25 +46,28 @@ export const RadioGroup = (props: RadioGroupProps) => {
   )
 }
 
-interface HookedRadioGroupProps extends UseFormRegisterReturn {
+interface HookedRadioGroupProps {
+  name: string
   options: IOption[]
-  error: string | undefined
 }
 
 export const HookedRadioGroup = forwardRef<HTMLInputElement, HookedRadioGroupProps>((props: HookedRadioGroupProps, ref) => {
+  const { register, formState: { errors } } = useFormContext()
+
   return (
     <RadioGroupContainer>
       {props.options.map(({ value, label }) => (
         <RadioLabel key={value}>
           <input
-            {...props}
-            ref={ref}
+            {...register(props.name)}
+            value={value}
             type='radio'
+            readOnly
           />
           <span>{label}</span>
         </RadioLabel>
       ))}
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </RadioGroupContainer>
   )
 })
@@ -209,3 +212,5 @@ const RadioLabel = styled.label`
     background-color: currentColor;
   }
 `
+
+export default RadioGroup

@@ -1,20 +1,20 @@
 import React, { forwardRef } from 'react'
-import Label from 'src/components/fonts/Label'
-import ErrorMsg from 'src/components/fonts/ErrorMsg'
-import styled from 'styled-components'
+import { Controller, useFormContext } from 'react-hook-form'
 import ReactSelect, { CommonProps } from 'react-select'
 import theme from 'src/app/theme'
-import { Control, Controller } from 'react-hook-form'
+import ErrorMsg from 'src/components/fonts/ErrorMsg'
+import Label from 'src/components/fonts/Label'
+import styled from 'styled-components'
 
-interface IOption {
+export interface ISelectOption {
   label: string
-  value: any
+  value: string
 }
 
 interface SelectProps {
-  options: IOption[]
+  options: ISelectOption[]
   value?: string
-  onChange?: React.FormEventHandler<HTMLInputElement>
+  onChange?: (option: ISelectOption) => void
   label?: string
   disabled?: boolean
   maxMenuHeight?: number
@@ -50,23 +50,23 @@ const Select = forwardRef<HTMLInputElement, SelectProps>((props: SelectProps, re
 
 interface HookedSelectProps {
   name: string
-  control: Control
-  options: IOption[]
-  error: string | undefined
+  options: ISelectOption[]
 }
 
 export const HookedSelect = (props: HookedSelectProps) => {
+  const { control, formState: { errors } } = useFormContext()
+
   return (
     <div>
       <Controller
         name={props.name}
-        control={props.control}
+        control={control}
         render={({ field }) => <Select
           {...field}
           options={props.options}
         />}
       />
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import { combineReducers, Reducer } from 'redux'
 
 import authReducer from './auth'
-import { RootState } from 'src/types/redux'
+import { IRootState } from 'src/types/redux.type'
 
-const rootReducer: Reducer<RootState> = combineReducers<RootState>({
+const rootReducer: Reducer<IRootState> = combineReducers<IRootState>({
   authState: authReducer,
 })
 

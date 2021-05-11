@@ -11,8 +11,7 @@ export const objectToQueryString = (obj: any) => {
   Object.keys(obj).forEach((key) => {
     const undef = obj[key] === undefined
     const emptyStr = obj[key] === ''
-    const emptyArr = obj[key] === []
-    if (undef || emptyStr || emptyArr) {
+    if (undef || emptyStr) {
       delete obj[key]
     }
   })
