@@ -1,5 +1,5 @@
-import React, { forwardRef, InputHTMLAttributes } from 'react'
-import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
+import React, { InputHTMLAttributes } from 'react'
+import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 import Label from '../fonts/Label'
@@ -16,7 +16,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = (props: InputProps) => {
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && props.onEnterPress) {
       props.onEnterPress()
     }

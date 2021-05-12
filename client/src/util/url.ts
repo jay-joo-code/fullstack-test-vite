@@ -18,7 +18,7 @@ export const objectToQueryString = (obj: any) => {
   return new URLSearchParams(obj).toString()
 }
 
-export const omitFromQueryString = (str: string, keys) =>
+export const omitFromQueryString = (str: string, keys: string[]) =>
   objectToQueryString(omit(queryStringToObject(str), keys))
 
 export const addToQueryString = (str: string, fields: any) =>

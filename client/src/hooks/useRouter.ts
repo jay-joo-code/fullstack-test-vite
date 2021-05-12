@@ -9,17 +9,17 @@ export default function useRouter () {
   const match: any = useRouteMatch()
 
   const query: any = {
-    ...parse(location.search), // Convert string to object
+    ...parse(location.search),
     ...params,
   }
 
-  const setQuery = (newQuery) => {
+  const setQuery = (newQuery: any) => {
     const queryStr = stringify(newQuery)
     const newPath = `${location.pathname}?${queryStr}`
     history.push(newPath)
   }
 
-  const updateQuery = (obj, overwrite = false) => {
+  const updateQuery = (obj: any, overwrite = false) => {
     const newQuery = Object.assign({}, query, obj)
     setQuery(overwrite ? obj : newQuery)
   }

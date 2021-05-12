@@ -1,13 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
-interface OutsideClickListenerProps {
-  onOutsideClick: () => void
-  children: React.ReactNode
-  isListening: boolean
-}
-
-const useOutsideAlerter = (ref, onOutsideClick, isListening) => {
-  const handleClickOutside = (event) => {
+const useOutsideAlerter = (ref: React.RefObject<HTMLDivElement>, onOutsideClick: () => void, isListening: boolean) => {
+  const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target) && event.target.tagName.toLowerCase() !== 'button') {
       onOutsideClick()
     } else {
@@ -27,8 +21,14 @@ const useOutsideAlerter = (ref, onOutsideClick, isListening) => {
   }, [ref, onOutsideClick, isListening])
 }
 
+interface OutsideClickListenerProps {
+  onOutsideClick: () => void
+  children: React.ReactNode
+  isListening: boolean
+}
+
 const OutsideClickListener = ({ onOutsideClick, children, isListening }: OutsideClickListenerProps) => {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   useOutsideAlerter(ref, onOutsideClick, isListening)
 
   return (

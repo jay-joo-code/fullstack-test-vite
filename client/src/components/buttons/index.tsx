@@ -1,7 +1,7 @@
 import React from 'react'
 import theme from 'src/app/theme'
 import styled from 'styled-components'
-import Icon from '../icon'
+import Icon, { IconVariants } from '../icon'
 import Loading from '../loading'
 
 export interface ButtonProps {
@@ -11,7 +11,7 @@ export interface ButtonProps {
   text?: boolean
   onClick?: () => void
   isLoading?: boolean
-  icon?: string
+  icon?: IconVariants
   isIconRightSide?: boolean
   iconSize?: string
   type?: 'submit'

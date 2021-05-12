@@ -7,7 +7,7 @@ import Home from 'src/pages/Home'
 import Login from 'src/pages/Login'
 import Logout from 'src/pages/Logout'
 import MobileBlock from 'src/pages/MobileBlock'
-import { RootState } from 'src/types/redux'
+import { IRootState } from 'src/types/redux.type'
 import FormTest from 'src/pages/FormTest'
 
 interface IRoute {
@@ -81,7 +81,7 @@ export const routes: IRoute[] = [
 ]
 
 const PrivateRoute = ({ component: Component, ...rest }: IRoute) => {
-  const { accessToken } = useSelector((state: RootState) => state.authState)
+  const { accessToken } = useSelector((state: IRootState) => state.authState)
 
   if (!accessToken || accessToken.length === 0) {
     return <Redirect to='/login' />

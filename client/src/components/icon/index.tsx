@@ -26,8 +26,38 @@ import { ReactComponent as WarningIcon } from 'src/assets/icons/warning.svg'
 import { ReactComponent as MoreHoriIcon } from 'src/assets/icons/more-hori.svg'
 import { ReactComponent as MoreVertIcon } from 'src/assets/icons/more-vert.svg'
 
+const variantToComponent = {
+  article: <ArticleIcon />,
+  edit: <EditIcon />,
+  done: <DoneIcon />,
+  right: <RightIcon />,
+  down: <DownIcon />,
+  up: <UpIcon />,
+  left: <LeftIcon />,
+  delete: <DeleteIcon />,
+  close: <CloseIcon />,
+  download: <DownloadIcon />,
+  bookmark: <BookmarkIcon />,
+  report: <ReportIcon />,
+  add: <AddIcon />,
+  exchange: <ExchangeIcon />,
+  'bookmark-filled': <BookmarkFilledIcon />,
+  people: <PeopleIcon />,
+  person: <PersonIcon />,
+  menu: <MenuIcon />,
+  lock: <LockIcon />,
+  place: <PlaceIcon />,
+  'add-circle': <AddCircleIcon />,
+  'remove-circle': <RemoveCircleIcon />,
+  warning: <WarningIcon />,
+  'more-hori': <MoreHoriIcon />,
+  'more-vert': <MoreVertIcon />,
+}
+
+export type IconVariants = keyof typeof variantToComponent
+
 interface IconProps extends IconContainerProps {
-  variant: string
+  variant: IconVariants
   onClick?: () => void
 }
 
@@ -39,34 +69,6 @@ interface IconContainerProps {
 }
 
 const Icon = (props: IconProps) => {
-  const variantToComponent = {
-    article: <ArticleIcon />,
-    edit: <EditIcon />,
-    done: <DoneIcon />,
-    right: <RightIcon />,
-    down: <DownIcon />,
-    up: <UpIcon />,
-    left: <LeftIcon />,
-    delete: <DeleteIcon />,
-    close: <CloseIcon />,
-    download: <DownloadIcon />,
-    bookmark: <BookmarkIcon />,
-    report: <ReportIcon />,
-    add: <AddIcon />,
-    exchange: <ExchangeIcon />,
-    'bookmark-filled': <BookmarkFilledIcon />,
-    people: <PeopleIcon />,
-    person: <PersonIcon />,
-    menu: <MenuIcon />,
-    lock: <LockIcon />,
-    place: <PlaceIcon />,
-    'add-circle': <AddCircleIcon />,
-    'remove-circle': <RemoveCircleIcon />,
-    warning: <WarningIcon />,
-    'more-hori': <MoreHoriIcon />,
-    'more-vert': <MoreVertIcon />,
-  }
-
   return (
     <IconContainer {...props}>
       {variantToComponent[props.variant]}

@@ -29,7 +29,7 @@ const useCustomMutation = <T>({
   const updateLocalConfig = updateLocal
     ? {
         // When mutate is called:
-        onMutate: (newVariables) => {
+        onMutate: (newVariables: any) => {
           if (updateLocal) {
             const snapshots: ISnapshot[] = []
 
@@ -59,7 +59,7 @@ const useCustomMutation = <T>({
                 if (updateLocal.type === 'update') {
                   // update by id
                   if (newVariables._id) {
-                    const newValues = oldData?.map((value) => {
+                    const newValues = oldData?.map((value: any) => {
                       if (value._id === newVariables._id) {
                         return { ...value, ...newVariables }
                       }
@@ -78,7 +78,7 @@ const useCustomMutation = <T>({
                   // delete by id
                   if (newVariables._id) {
                     const newValues = oldData?.filter(
-                      (value) => value._id !== newVariables._id
+                      (value: any) => value._id !== newVariables._id
                     )
                     return newValues
                   } else {

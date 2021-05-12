@@ -12,7 +12,7 @@ export const hexToRGBA = (hex: string, alpha: number) => {
   }
 }
 
-export const gradient = (g1, g2) =>
+export const gradient = (g1: string, g2: string) =>
   css`radial-gradient(ellipse farthest-corner at top left, ${g1} 0%, ${g2} 100%)`
 
 export const tint = (hex: string, amount: number) => {

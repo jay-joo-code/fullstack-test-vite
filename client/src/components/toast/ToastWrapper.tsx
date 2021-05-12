@@ -7,11 +7,22 @@ import './ToastStyles.less'
 const ZoomCustom = cssTransition({
   enter: 'zoomIn',
   exit: 'zoomOut',
-  duration: [300, 500],
   appendPosition: false,
   collapse: true,
   collapseDuration: 300,
 })
+
+const ToastWrapper = () => {
+  return <StyledToastContainer
+    position='top-center'
+    autoClose={2500}
+    hideProgressBar={true}
+    newestOnTop={false}
+    transition={ZoomCustom}
+    rtl={false}
+    pauseOnHover
+  />
+}
 
 const StyledToastContainer = styled(ToastContainer).attrs({
   className: 'toast-container',
@@ -60,17 +71,5 @@ const StyledToastContainer = styled(ToastContainer).attrs({
   /* .progress is passed to progressClassName */
   .progress {}
 `
-
-const ToastWrapper = () => {
-  return <StyledToastContainer
-    position='top-center'
-    autoClose={2500}
-    hideProgressBar={true}
-    newestOnTop={false}
-    transition={ZoomCustom}
-    rtl={false}
-    pauseOnHover
-  />
-}
 
 export default ToastWrapper
