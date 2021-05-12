@@ -21,7 +21,11 @@ interface DateRangePickerProps {
 
 const DateRangePicker = (props: DateRangePickerProps) => {
   const handleChange = (range: OnChangeProps) => {
-    props.setDates((range as IRangeProp).selection)
+    const newDates = (range as IRangeProp).selection
+    props.setDates({
+      startDate: newDates.startDate,
+      endDate: newDates.endDate,
+    })
   }
 
   return (

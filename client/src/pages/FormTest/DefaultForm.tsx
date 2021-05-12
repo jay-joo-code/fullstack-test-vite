@@ -84,7 +84,7 @@ const DefaultForm = () => {
   })
   const [incrementorValue, setIncrementorValue] = useState<number>(0)
 
-  // console.log('dateRangePickerValue :>> ', dateRangePickerValue)
+  console.log('dateRangePickerValue :>> ', dateRangePickerValue)
 
   return (
     <Container>

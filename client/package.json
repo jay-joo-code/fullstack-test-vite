@@ -9,9 +9,7 @@
   "dependencies": {
     "@hookform/resolvers": "^2.4.0",
     "@reduxjs/toolkit": "^1.5.1",
-    "antd": "^4.15.4",
     "axios": "^0.21.1",
-    "date-fns": "^2.21.3",
     "install": "^0.13.0",
     "moment": "^2.29.1",
     "npm": "^7.12.0",

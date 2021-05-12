@@ -2,7 +2,7 @@ import React from 'react'
 import { Calendar, OnChangeProps } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { Control, Controller, useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 
