@@ -51,7 +51,7 @@ interface HookedRadioGroupProps {
   options: IOption[]
 }
 
-export const HookedRadioGroup = forwardRef<HTMLInputElement, HookedRadioGroupProps>((props: HookedRadioGroupProps, ref) => {
+export const HookedRadioGroup = (props: HookedRadioGroupProps) => {
   const { register, formState: { errors } } = useFormContext()
 
   return (
@@ -70,9 +70,7 @@ export const HookedRadioGroup = forwardRef<HTMLInputElement, HookedRadioGroupPro
       <ErrorMsg error={errors[props.name]?.message} />
     </RadioGroupContainer>
   )
-})
-
-HookedRadioGroup.displayName = 'HookedRadioGroup'
+}
 
 const RadioGroupContainer = styled.div`
   display: flex;

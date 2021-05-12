@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import * as yup from 'yup'
 import Datepicker, { HookedDatePicker } from 'src/components/formElements/DatePicker'
 import DateRangePicker, { HookedDateRangePicker, IDates } from 'src/components/formElements/DateRangePicker'
+import Incrementor, { HookedIncrementor } from 'src/components/formElements/Incrementor'
 
 const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
@@ -23,24 +24,25 @@ const schema = yup.object().shape({
     .typeError('Must choose an option')
     .required('Must choose an option'),
   datePickerName: yup.date().typeError('Must pick a date'),
-  // dateRangePickerName: yup.object()
-  //   .shape({
-  //     startDate: yup.date().typeError('Must pick a start date'),
-  //     endDate: yup.date().typeError('Must pick an end date'),
-  //   })
-  //   .typeError('Must select a date range')
-  //   .required('Must select a date range'),
-  // incrementorName: yup.number().min(3, 'Minimum 3 required'),
+  dateRangePickerName: yup.object()
+    .shape({
+      startDate: yup.date().typeError('Must pick a start date'),
+      endDate: yup.date().typeError('Must pick an end date'),
+    })
+    .typeError('Must select a date range')
+    .required('Must select a date range'),
+  incrementorName: yup.number().min(3, 'Minimum 3 required'),
 })
 
 interface IFormData {
   inputName: string
-  textAreaName: string
+  textareaName: string
   checkboxName: boolean
   selectName: ISelectOption,
   radioGroupName: string,
   datePickerName: Date,
   dateRangePickerName: IDates
+  incrementorName: number
 }
 
 const DefaultForm = () => {
@@ -48,7 +50,7 @@ const DefaultForm = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       inputName: 'default text',
-      textAreaName: 'default text',
+      textareaName: 'default text',
       checkboxName: false,
       selectName: undefined,
       radioGroupName: undefined,
@@ -57,11 +59,12 @@ const DefaultForm = () => {
         startDate: new Date(),
         endDate: new Date(),
       },
+      incrementorName: 2,
     },
   })
-  const { register, handleSubmit, formState: { errors }, watch, control } = methods
+  const { handleSubmit, watch } = methods
 
-  console.log('watch(checkboxName) :>> ', watch('checkboxName'))
+  // console.log('watch(incrementorName) :>> ', watch('incrementorName'))
   // console.log('errors :>> ', errors)
 
   const onSubmit = (data: IFormData) => {
@@ -79,6 +82,7 @@ const DefaultForm = () => {
     startDate: new Date(),
     endDate: new Date(),
   })
+  const [incrementorValue, setIncrementorValue] = useState<number>(0)
 
   // console.log('dateRangePickerValue :>> ', dateRangePickerValue)
 
@@ -110,8 +114,8 @@ const DefaultForm = () => {
 
           {/* react-hook-form */}
           <HookedTextarea
-            {...register('textAreaName')}
-            label='textAreaName'
+            label='textareaName'
+            name='textareaName'
             minRows={3}
             maxRows={5}
           />
@@ -180,8 +184,6 @@ const DefaultForm = () => {
           {/* react-hook-form */}
           <HookedDatePicker
             name='datePickerName'
-            control={control}
-            error={errors.datePickerName?.message}
           />
 
           {/* local state */}
@@ -195,13 +197,19 @@ const DefaultForm = () => {
             name='dateRangePickerName'
           />
 
-          {/*
+          {/* local state */}
+          <Incrementor
+            value={incrementorValue}
+            label='incrementorName'
+            onChange={setIncrementorValue}
+          />
+
+          {/* react-hook-form */}
           <HookedIncrementor
             name='incrementorName'
-            control={control}
             label='incrementorName'
-            error={errors.incrementorName?.message}
-          /> */}
+          />
+
           <FlexRow justifyEnd>
             <Button
               label='Submit'
@@ -217,8 +225,8 @@ const DefaultForm = () => {
 const Container = styled.div`
   padding: 1rem;
 
-  /* datepickers need at least 350px width */
-  min-width: 350px; 
+  /* datepickers need at least 340px width */
+  min-width: 340px; 
 `
 
 const Form = styled.form`

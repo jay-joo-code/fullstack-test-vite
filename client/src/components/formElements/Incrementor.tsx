@@ -1,10 +1,10 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
+import React, { useEffect } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 import theme from 'src/app/theme'
 import useIsMobile from 'src/hooks/useIsMobile'
 import Text from '../fonts/Text'
 import Icon from '../icon'
-import { FlexRow } from '../layout'
+import { FlexRow, Space } from '../layout'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
 
 interface IncrementorProps {
@@ -46,7 +46,7 @@ const Incrementor = ({
   return (
     <FlexRow
       alignCenter
-
+      justifySpaceBetween
       fullWidth
     >
       <Text
@@ -63,13 +63,9 @@ const Incrementor = ({
           size='2rem'
           onClick={handleMinusClick}
         />
-        <FlexRow
-          justifyCenter
-          alignCenter
-          style={{ width: '40px' }}
-        >
-          <Text variant='h4'>{value}</Text>
-        </FlexRow>
+        <Space padding='0 .5rem' />
+        <Text variant='h4'>{value}</Text>
+        <Space padding='0 .5rem' />
         <Icon
           variant='add-circle'
           fill={theme.brand}
@@ -84,26 +80,28 @@ const Incrementor = ({
 
 interface HookedIncrementorProps {
   name: string
-  control: any
   label: string
-  error?: string
 }
 
 export const HookedIncrementor = (props: HookedIncrementorProps) => {
+  const { register, getValues, setValue, formState: { errors } } = useFormContext()
+
+  useEffect(() => {
+    register(props.name)
+  }, [register])
+
+  const handleChange = (newValue: number) => {
+    setValue(props.name, newValue)
+  }
+
   return (
     <div>
-      <Controller
-        name={props.name}
-        control={props.control}
-        render={({ onChange, value }) =>
-          <Incrementor
-            label={props.label}
-            value={value}
-            onChange={onChange}
-          />
-        }
+      <Incrementor
+        value={getValues(props.name)}
+        onChange={handleChange}
+        label={props.label}
       />
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
 }

@@ -34,7 +34,7 @@ interface HookedCheckboxProps {
   name: string
 }
 
-export const HookedCheckbox = forwardRef<HTMLInputElement, HookedCheckboxProps>((props: HookedCheckboxProps, ref) => {
+export const HookedCheckbox = (props: HookedCheckboxProps) => {
   const { register, formState: { errors } } = useFormContext()
 
   return (
@@ -57,9 +57,7 @@ export const HookedCheckbox = forwardRef<HTMLInputElement, HookedCheckboxProps>(
       <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
-})
-
-HookedCheckbox.displayName = 'HookedCheckbox'
+}
 
 const StyledCheckbox = styled.label`
   z-index: 0;

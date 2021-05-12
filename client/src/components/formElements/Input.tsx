@@ -44,7 +44,7 @@ interface HookedInputProps {
   name: string
 }
 
-export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props: HookedInputProps, ref) => {
+export const HookedInput = (props: HookedInputProps) => {
   const { register, formState: { errors } } = useFormContext()
 
   return (
@@ -59,9 +59,7 @@ export const HookedInput = forwardRef<HTMLInputElement, HookedInputProps>((props
       <ErrorMsg error={errors[props.name]?.message} />
     </InputContainer>
   )
-})
-
-HookedInput.displayName = 'HookedInput'
+}
 
 const InputContainer = styled.div`
   display: flex;

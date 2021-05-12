@@ -2,7 +2,7 @@ import React from 'react'
 import { Calendar, OnChangeProps } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { Control, Controller } from 'react-hook-form'
+import { Control, Controller, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
 
@@ -27,16 +27,16 @@ const DatePicker = (props: DatePickerProps) => {
 
 interface HookDatePickerProps {
   name: string
-  control: any
-  error?: string
 }
 
 export const HookedDatePicker = (props: HookDatePickerProps) => {
+  const { control, formState: { errors } } = useFormContext()
+
   return (
     <div>
       <Controller
         name={props.name}
-        control={props.control}
+        control={control}
         render={({ field }) => {
           return (
             <StyledCalendar
@@ -46,7 +46,7 @@ export const HookedDatePicker = (props: HookDatePickerProps) => {
           )
         }}
       />
-      <ErrorMsg error={props.error} />
+      <ErrorMsg error={errors[props.name]?.message} />
     </div>
   )
 }
