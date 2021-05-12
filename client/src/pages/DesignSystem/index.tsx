@@ -1,16 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+import Button from 'src/components/buttons/Button'
 
 const DesignSystem = () => {
   return (
-    <Container>
-
-    </Container>
+    <div>
+      <Button
+        variant='outlined'
+      >test
+      </Button>
+    </div>
   )
 }
-
-const Container = styled.div`
-  
-`
 
 export default DesignSystem

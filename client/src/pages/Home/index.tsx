@@ -5,7 +5,12 @@ import styled from 'styled-components'
 const Home = () => {
   return (
     <Container>
-      <Link to='/form-test'>form test</Link>
+      <div>
+        <Link to='/form-test'>form test</Link>
+      </div>
+      <div>
+        <Link to='/design-system'>design system</Link>
+      </div>
     </Container>
   )
 }

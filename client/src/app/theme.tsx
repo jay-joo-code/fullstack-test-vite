@@ -48,6 +48,7 @@ export const theme = {
   brand500: '#B31B1B',
   brand300: '#C65454',
   brand100: '#D98D8D',
+  brand50: '#F4DFDF',
 
   // text
   text: '#3B454E',

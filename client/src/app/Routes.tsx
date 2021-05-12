@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import Loading from 'src/components/loading'
 import useIsMobile from 'src/hooks/useIsMobile'
 import { IRootState } from 'src/types/redux.type'
 
@@ -11,6 +10,7 @@ const Login = React.lazy(() => import('src/pages/Login'))
 const Logout = React.lazy(() => import('src/pages/Logout'))
 const MobileBlock = React.lazy(() => import('src/pages/MobileBlock'))
 const FormTest = React.lazy(() => import('src/pages/FormTest'))
+const DesignSystem = React.lazy(() => import('src/pages/DesignSystem'))
 
 interface IRoute {
   path: string
@@ -72,6 +72,15 @@ export const routes: IRoute[] = [
     isDesktopOnly: false,
   },
   {
+    path: '/design-system',
+    component: DesignSystem,
+    label: 'Design System',
+    isPublicNav: false,
+    isPrivateNav: false,
+    isPrivateRoute: false,
+    isDesktopOnly: false,
+  },
+  {
     path: '/',
     component: Home,
     label: 'Home',
@@ -118,7 +127,7 @@ const DesktopRoute = ({ component: Component, ...rest }: IRoute) => {
 
 const Routes = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<div />}>
       <Switch>
         {routes.map(({ path, component, isPrivateRoute, isDesktopOnly, ...rest }) => isPrivateRoute
           ? <PrivateRoute
