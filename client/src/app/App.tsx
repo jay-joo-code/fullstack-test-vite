@@ -14,7 +14,6 @@ import Header from '../components/header'
 import Routes from './Routes'
 import theme from './theme'
 
-import 'antd/dist/antd.css'
 import './normalise.less'
 
 const Container = styled.div`
