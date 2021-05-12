@@ -25,5 +25,12 @@ module.exports = {
       exports: 'never',
       functions: 'never',
     }],
+    'import/no-named-default': 'off',
+    'react/jsx-indent-props': ['warn', 2],
+    'react/jsx-max-props-per-line': ['warn', { maximum: 1 }],
+    'react/jsx-first-prop-new-line': ['warn', 'multiline-multiprop'],
+    'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
+    'react/jsx-closing-tag-location': 'warn',
+    'react/jsx-indent': ['warn', 2],
   },
 }
