@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import svgr from 'vite-plugin-svgr'
-import analyze from 'rollup-plugin-analyzer'
 import visualize from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
@@ -15,7 +14,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      plugins: [analyze(), visualize({ open: true })],
+      plugins: [visualize({ open: true })],
       output: {
         manualChunks: (id) => {
           if (id.includes('react')) {
