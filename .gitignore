@@ -74,3 +74,4 @@ server/.env
 
 # build
 build/
+client/stats.html
