@@ -16,6 +16,25 @@ export default defineConfig({
   build: {
     rollupOptions: {
       plugins: [analyze(), visualize({ open: true })],
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('react')) {
+            return 'react'
+          }
+          if (id.includes('date')) {
+            return 'date'
+          }
+          if (id.includes('antd')) {
+            return 'antd'
+          }
+          if (id.includes('lodash')) {
+            return 'lodash'
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+        },
+      },
     },
   },
 })
