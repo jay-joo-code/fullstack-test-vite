@@ -2,11 +2,13 @@ import express from 'express'
 import path from 'path'
 import cors from 'cors'
 import router from './router'
+import compression from 'compression'
 
 const app = express()
 
 // middleware
 app.use(cors())
+app.use(compression())
 app.use(express.json({ limit: '500kb' }))
 app.use(express.urlencoded({ extended: false }))
 
