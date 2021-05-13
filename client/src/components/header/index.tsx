@@ -15,8 +15,8 @@ const Header = () => {
           fullWidth
           style={{ padding: '.5rem' }}
         >
-          <Logo />
-          <Auth />
+          {/* <Logo /> */}
+          {/* <Auth /> */}
         </FlexRow>
       </DesktopContainer>
     </Container>

@@ -1,13 +1,10 @@
 import React from 'react'
-import Button from 'src/components/buttons/Button'
+import ButtonsSystem from './ButtonsSystem'
 
 const DesignSystem = () => {
   return (
     <div>
-      <Button
-        variant='outlined'
-      >test
-      </Button>
+      <ButtonsSystem />
     </div>
   )
 }

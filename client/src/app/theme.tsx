@@ -29,6 +29,8 @@ export const theme = {
   danger100: '#F9E2E2',
   danger50: '#FCF1F1',
 
+  disabled: palette.grey[400],
+
   // bg
   bg: '#ffffff',
   bgWash1: palette.grey[50],
