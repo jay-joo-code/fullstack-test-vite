@@ -10,7 +10,7 @@ interface ContainedBtnProps {
   children: React.ReactNode
   variant: IVariant
   color?: string
-  bgColor?: string
+  background?: string
   disabled?: boolean
   size?: ISize
   startIcon?: JSX.Element
@@ -20,8 +20,8 @@ interface ContainedBtnProps {
 const Button = (props: ContainedBtnProps) => {
   return (
     <StyledButton
-      overrideColor={props.color || theme.brand}
-      bgColor={props.bgColor || theme.brand50}
+      overridecolor={props.color || theme.brand}
+      background={props.background || theme.brand50}
       variant={props.variant}
       disabled={props.disabled}
       size={props.size}
@@ -33,8 +33,8 @@ const Button = (props: ContainedBtnProps) => {
 }
 
 interface StyledButtonProps {
-  overrideColor: string
-  bgColor?: string
+  overridecolor: string
+  background?: string
   variant: IVariant
   disabled?: boolean
 }
@@ -42,19 +42,19 @@ interface StyledButtonProps {
 const StyledButton = styled(MuiButton)<StyledButtonProps>`
   /* contained */
   color: ${props => props.variant === 'contained' && 'white !important'};
-  background: ${props => (props.variant === 'contained' && !props.disabled) && `${props.overrideColor} !important`};
+  background: ${props => (props.variant === 'contained' && !props.disabled) && `${props.overridecolor} !important`};
 
   /* text */
-  color: ${props => (props.variant === 'text' && !props.disabled) && `${props.overrideColor} !important`};
+  color: ${props => (props.variant === 'text' && !props.disabled) && `${props.overridecolor} !important`};
   background: ${props => props.variant === 'text' && 'white !important'};
 
   &:hover {
-    background: ${props => props.variant === 'text' && `${props.bgColor} !important`};
+    background: ${props => props.variant === 'text' && `${props.background} !important`};
   }
 
   /* outlined */
-  color: ${props => (props.variant === 'outlined' && !props.disabled) && `${props.overrideColor} !important`};
-  border-color: ${props => (props.variant === 'outlined' && !props.disabled) && `${props.overrideColor} !important`};
+  color: ${props => (props.variant === 'outlined' && !props.disabled) && `${props.overridecolor} !important`};
+  border-color: ${props => (props.variant === 'outlined' && !props.disabled) && `${props.overridecolor} !important`};
 `
 
 export default Button

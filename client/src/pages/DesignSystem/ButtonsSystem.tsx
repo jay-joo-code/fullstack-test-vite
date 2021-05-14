@@ -33,7 +33,7 @@ const ButtonsSystem = () => {
         <Button
           variant='text'
           color={theme.info}
-          bgColor={theme.info50}
+          background={theme.info50}
         >test
         </Button>
         <Button
