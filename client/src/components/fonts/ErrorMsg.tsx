@@ -7,7 +7,7 @@ const ErrorMsg = (props: { error?: string }) => {
     <>
       {props.error && <Text
         variant='h6'
-        color={theme.danger}
+        color={theme.danger[500]}
         fontWeight={500}
       >{props.error}</Text>}
     </>

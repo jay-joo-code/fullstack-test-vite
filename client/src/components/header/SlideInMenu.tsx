@@ -2,11 +2,13 @@
 import React from 'react'
 import Text from '../fonts/Text'
 import styled from 'styled-components'
-import OutsideClickListener from '../layout/OutsideClickListener'
-import { FlexRow } from '../layout'
-import Icon from '../icon'
+import OutsideClickListener from '../util/OutsideClickListener'
+import { FlexRow } from '../layout/Flex'
 import useNavs from 'src/hooks/useNavs'
 import { Link } from 'react-router-dom'
+import Close from '@material-ui/icons/Close'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 
 interface ContainerProps {
   isOpen: boolean
@@ -55,10 +57,11 @@ const SlideInMenu = ({ isOpen, setIsOpen }: SlideInMenuProps) => {
       <Container isOpen={isOpen}>
         <TopRow justifySpaceBetween>
           <div />
-          <Icon
-            variant='close'
-            onClick={() => setIsOpen(false)}
-          />
+          <Tooltip title='Close'>
+            <IconButton onClick={() => setIsOpen(false)}>
+              <Close />
+            </IconButton>
+          </Tooltip>
         </TopRow>
         <List>
           {navs.map((nav) => (
@@ -70,7 +73,8 @@ const SlideInMenu = ({ isOpen, setIsOpen }: SlideInMenuProps) => {
                 <Text
                   variant='h4'
                   fontWeight={500}
-                >{nav.label}</Text>
+                >{nav.label}
+                </Text>
               </Link>
             </div>
           ))}

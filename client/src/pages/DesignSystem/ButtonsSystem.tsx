@@ -1,11 +1,14 @@
-import React from 'react'
-import theme from 'src/app/theme'
-import Button from 'src/components/buttons/Button'
-import styled from 'styled-components'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
 import SaveIcon from '@material-ui/icons/Save'
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
-import { IconButton } from '@material-ui/core'
+import React from 'react'
+import theme from 'src/app/theme'
+import Button from 'src/components/Button'
+import styled from 'styled-components'
+import ConfirmationModalButton from './ConfirmationModalButton'
+import TestModalButton from './TestModalButton'
 
 const ButtonsSystem = () => {
   return (
@@ -27,18 +30,18 @@ const ButtonsSystem = () => {
       <ButtonsContainer>
         <Button
           variant='contained'
-          color={theme.info}
+          color={theme.info[500]}
         >test
         </Button>
         <Button
           variant='text'
-          color={theme.info}
-          background={theme.info50}
+          color={theme.info[500]}
+          background={theme.info[50]}
         >test
         </Button>
         <Button
           variant='outlined'
-          color={theme.info}
+          color={theme.info[500]}
         >test
         </Button>
       </ButtonsContainer>
@@ -80,13 +83,19 @@ const ButtonsSystem = () => {
         <Button
           variant='contained'
           startIcon={<DeleteIcon />}
-          color={theme.danger}
+          color={theme.danger[500]}
         >delete
         </Button>
         <Button
           variant='contained'
           startIcon={<SaveIcon />}
-          color={theme.info}
+          color={theme.info[500]}
+        >save
+        </Button>
+        <Button
+          variant='contained'
+          startIcon={<SaveIcon />}
+          color={theme.info[500]}
         >save
         </Button>
       </ButtonsContainer>
@@ -98,9 +107,20 @@ const ButtonsSystem = () => {
         </DeleteIconContainer>
       </ButtonsContainer>
       <ButtonsContainer>
-        <IconButton>
-          <StyledAddCircleIcon />
-        </IconButton>
+        <Tooltip title='Delete'>
+          <IconButton>
+            <StyledAddCircleIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title='Save'>
+          <IconButton>
+            <SaveIcon />
+          </IconButton>
+        </Tooltip>
+      </ButtonsContainer>
+      <ButtonsContainer>
+        <TestModalButton />
+        <ConfirmationModalButton />
       </ButtonsContainer>
     </div>
   )
@@ -118,7 +138,7 @@ const DeleteIconContainer = styled.div`
 `
 
 const StyledAddCircleIcon = styled(AddCircleOutlineOutlinedIcon)`
-  color: ${props => props.theme.brand};
+  color: ${props => props.theme.brand[500]};
 `
 
 export default ButtonsSystem

@@ -37,13 +37,13 @@ const StyledToastContainer = styled(ToastContainer).attrs({
     background: ${(props) => props.theme.success}
   }
   & .Toastify__toast--info {
-    background: ${(props) => props.theme.info}
+    background: ${(props) => props.theme.info[500]}
   }
   & .Toastify__toast--warning {
-    background: ${(props) => props.theme.warning}
+    background: ${(props) => props.theme.warning[500]}
   }
   & .Toastify__toast--error {
-    background: ${(props) => props.theme.danger}
+    background: ${(props) => props.theme.danger[500]}
   }
 
    /* .toast is passed to toastClassName */

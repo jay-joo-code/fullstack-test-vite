@@ -10,7 +10,7 @@ import ScrollToTop from 'src/components/util/ScrollToTop'
 import store from 'src/slices/store'
 import history from 'src/util/history'
 import styled, { ThemeProvider } from 'styled-components'
-import Header from '../components/header'
+import Header from '../components/header/Header'
 import Routes from './Routes'
 import theme from './theme'
 

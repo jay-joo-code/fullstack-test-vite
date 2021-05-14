@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Space } from '.'
+import Space from './Space'
 
 const TriggerContainer = styled.div`
   cursor: pointer;

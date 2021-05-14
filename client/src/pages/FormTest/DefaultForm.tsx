@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { Button } from 'src/components/buttons'
-import Checkbox, { HookedCheckbox } from 'src/components/formElements/Checkbox'
-import Input, { HookedInput } from 'src/components/formElements/Input'
-import RadioGroup, { HookedRadioGroup } from 'src/components/formElements/RadioGroup'
-import Select, { HookedSelect, ISelectOption } from 'src/components/formElements/Select'
-import Textarea, { HookedTextarea } from 'src/components/formElements/Textarea'
-import { FlexRow } from 'src/components/layout'
+import Button from 'src/components/Button'
+import Checkbox, { HookedCheckbox } from 'src/components/form-elements/Checkbox'
+import Input, { HookedInput } from 'src/components/form-elements/TextField'
+import RadioGroup, { HookedRadioGroup } from 'src/components/form-elements/RadioGroup'
+import Select, { HookedSelect, ISelectOption } from 'src/components/form-elements/Select'
+import Textarea, { HookedTextarea } from 'src/components/form-elements/Textarea'
+import { FlexRow } from 'src/components/layout/Flex'
 import styled from 'styled-components'
 import * as yup from 'yup'
-import Datepicker, { HookedDatePicker } from 'src/components/formElements/DatePicker'
-import DateRangePicker, { HookedDateRangePicker, IDates } from 'src/components/formElements/DateRangePicker'
-import Incrementor, { HookedIncrementor } from 'src/components/formElements/Incrementor'
+import Datepicker, { HookedDatePicker } from 'src/components/form-elements/DatePicker'
+import DateRangePicker, { HookedDateRangePicker, IDates } from 'src/components/form-elements/DateRangePicker'
+import Incrementor, { HookedIncrementor } from 'src/components/form-elements/Incrementor'
 
 const schema = yup.object().shape({
   inputName: yup.string().required('This is a required field'),
@@ -212,9 +212,9 @@ const DefaultForm = () => {
 
           <FlexRow justifyEnd>
             <Button
-              label='Submit'
               type='submit'
-            />
+            >Submit
+            </Button>
           </FlexRow>
         </Form>
       </FormProvider>

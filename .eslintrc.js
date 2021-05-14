@@ -32,5 +32,7 @@ module.exports = {
     'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
     'react/jsx-closing-tag-location': 'warn',
     'react/jsx-indent': ['warn', 2],
+    quotes: ['warn', 'single'],
+    'jsx-quotes': ['warn', 'prefer-single'],
   },
 }

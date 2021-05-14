@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Avatar from '../avatar'
-import Icon from '../icon'
-import { FlexRow, Space } from '../layout'
+import Avatar from './Avatar'
+import { FlexRow } from '../layout/Flex'
+import Space from '../layout/Space'
 
 interface AuthedProps {
   userPhotoSrc: string
@@ -13,10 +13,6 @@ const AuthedAvatar = ({ userPhotoSrc }: AuthedProps) => {
     <Container>
       <Avatar src={userPhotoSrc} />
       <Space margin='0 .1rem' />
-      <Icon
-        variant='down'
-        size='1.5rem'
-      />
     </Container>
   )
 }
