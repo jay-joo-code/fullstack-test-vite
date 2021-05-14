@@ -1,3 +1,4 @@
+import { watch } from 'fs'
 import React, { useEffect } from 'react'
 import { DateRange, OnChangeProps, RangeWithKey } from 'react-date-range'
 import { useFormContext } from 'react-hook-form'
@@ -43,7 +44,7 @@ interface HookDateRangePickerProps {
 }
 
 export const HookedDateRangePicker = (props: HookDateRangePickerProps) => {
-  const { register, getValues, setValue, formState: { errors } } = useFormContext()
+  const { register, watch, setValue, formState: { errors } } = useFormContext()
 
   useEffect(() => {
     register(props.name)
@@ -62,7 +63,7 @@ export const HookedDateRangePicker = (props: HookDateRangePickerProps) => {
       <StyledDateRange
         onChange={handleChange}
         moveRangeOnFirstSelection={false}
-        ranges={[{ ...getValues(props.name), key: 'selection' }]}
+        ranges={[{ ...watch(props.name), key: 'selection' }]}
         rangeColors={[theme.brand]}
       />
       <ErrorMsg error={errors[props.name]?.message} />

@@ -6,6 +6,10 @@ import Text from '../fonts/Text'
 import Icon from '../icon'
 import { FlexRow, Space } from '../layout'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
+import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined'
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
+import styled from 'styled-components'
+import { IconButton } from '@material-ui/core'
 
 interface IncrementorProps {
   value: number
@@ -56,23 +60,19 @@ const Incrementor = ({
         {label}
       </Text>
       <FlexRow alignCenter>
-        <Icon
-          variant='remove-circle'
-          fill={theme.brand}
-          pointer
-          size='2rem'
-          onClick={handleMinusClick}
-        />
+        <IconButton onClick={handleMinusClick}>
+          <StyledRemove />
+        </IconButton>
         <Space padding='0 .5rem' />
-        <Text variant='h4'>{value}</Text>
+        <div style={{ width: '20px' }}>
+          <FlexRow justifyCenter>
+            <Text variant='h4'>{value}</Text>
+          </FlexRow>
+        </div>
         <Space padding='0 .5rem' />
-        <Icon
-          variant='add-circle'
-          fill={theme.brand}
-          pointer
-          size='2rem'
-          onClick={handlePlusClick}
-        />
+        <IconButton onClick={handlePlusClick}>
+          <StyledAdd />
+        </IconButton>
       </FlexRow>
     </FlexRow>
   )
@@ -84,7 +84,7 @@ interface HookedIncrementorProps {
 }
 
 export const HookedIncrementor = (props: HookedIncrementorProps) => {
-  const { register, getValues, setValue, formState: { errors } } = useFormContext()
+  const { register, setValue, formState: { errors }, watch } = useFormContext()
 
   useEffect(() => {
     register(props.name)
@@ -97,7 +97,7 @@ export const HookedIncrementor = (props: HookedIncrementorProps) => {
   return (
     <div>
       <Incrementor
-        value={getValues(props.name)}
+        value={watch(props.name)}
         onChange={handleChange}
         label={props.label}
       />
@@ -105,5 +105,13 @@ export const HookedIncrementor = (props: HookedIncrementorProps) => {
     </div>
   )
 }
+
+const StyledRemove = styled(RemoveCircleOutlineOutlinedIcon)`
+  color: ${props => props.theme.brand};
+`
+
+const StyledAdd = styled(AddCircleOutlineOutlinedIcon)`
+  color: ${props => props.theme.brand};
+`
 
 export default Incrementor
