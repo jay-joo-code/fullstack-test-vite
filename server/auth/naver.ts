@@ -10,7 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
 https://developers.naver.com/main/
 
 1. navbar > application > 애플리케이션 등록
-callback url 은 `${process.env.DEV_SERVER_DOMAIN}/api/public/auth/naver/callback`
+callback url 은 `${process.env.SERVER_DOMAIN}/api/public/auth/naver/callback`
 
 2. 검수
 로고 등록 후 검수를 통과해야지 네아로 사용 가능
@@ -20,7 +20,7 @@ callback url 은 `${process.env.DEV_SERVER_DOMAIN}/api/public/auth/naver/callbac
 passport.use(new NaverStrategy({
   clientID: process.env.ID_NAVER,
   clientSecret: process.env.SECRET_NAVER,
-  callbackURL: `${process.env.DEV_SERVER_DOMAIN}/api/public/auth/naver/callback`,
+  callbackURL: `${process.env.SERVER_DOMAIN}/api/public/auth/naver/callback`,
   // authType: 'reauthenticate', // reauthenticate previously signed in users (optional)
 },
 async (accessToken, refreshToken, profile, done) => {

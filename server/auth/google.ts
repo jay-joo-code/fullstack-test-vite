@@ -13,7 +13,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 passport.use(new GoogleStrategy({
   clientID: process.env.ID_GOOGLE as string,
   clientSecret: process.env.SECRET_GOOGLE as string,
-  callbackURL: `${process.env.DEV_SERVER_DOMAIN}/api/public/auth/google/callback`,
+  callbackURL: `${process.env.SERVER_DOMAIN}/api/public/auth/google/callback`,
 },
 async (accessToken, refreshToken, profile, done) => {
   try {
