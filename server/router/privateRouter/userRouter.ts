@@ -1,6 +1,5 @@
 import express from 'express'
 import User from '../../models/User'
-import Plan from '../../models/Plan'
 import substringQuery from '../../util/substringQuery'
 
 const userRouter = express.Router()
@@ -25,16 +24,9 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.get('/current', async (req, res) => {
   try {
-    res.send(req.user)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
+    console.log('userRouter /current')
 
-userRouter.get('/plans', async (req, res) => {
-  try {
-    const docs = await Plan.find({ userId: req.user?._id }).sort({ updatedAt: -1 })
-    res.send(docs)
+    res.send(req.user)
   } catch (e) {
     res.status(500).send(e)
   }

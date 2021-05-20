@@ -1,32 +1,11 @@
 import axios from 'axios'
 import history from 'src/util/history'
 import { objectToQueryString } from 'src/util/url'
-import store from 'src/slices/store'
-import { logout } from 'src/slices/auth'
+import store from 'src/redux/store'
+import { logout } from 'src/redux/auth'
 import { showToast } from 'src/util/toast'
 
-const defaults = {
-  baseURL: '/api',
-  headers: () => ({
-    'Content-Type': 'application/json',
-  }),
-  error: {
-    code: 'INTERNAL_ERROR',
-    message: 'Something went wrong. Please check your internet connection or contact our support.',
-    status: 503,
-    data: {},
-  },
-}
-
-const listener = () => {
-  const { accessToken } = store.getState().authState
-  defaults.headers = () => ({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`,
-  })
-}
-
-store.subscribe(listener)
+const BASE_URL = '/api'
 
 const api = (
   method: 'get' | 'post' | 'put' | 'delete',
@@ -34,10 +13,16 @@ const api = (
   variables: any
 ) =>
   new Promise((resolve, reject) => {
+    const { accessToken } = store.getState().authState
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+    }
+
     axios({
-      url: `${defaults.baseURL}${url}`,
+      url: `${BASE_URL}${url}`,
       method,
-      headers: defaults.headers(),
+      headers,
       params: method === 'get' ? variables : undefined,
       data: method !== 'get' ? variables : undefined,
       paramsSerializer: objectToQueryString,
@@ -46,14 +31,14 @@ const api = (
         resolve(response.data)
       },
       (error) => {
-        // TOOD: auth error handling
+        // TODO: refresh token handling
         if (error.response) {
           const { code, message } = error.response.data
           if (code === 404) {
-            if (message === '접속 토큰이 유효하지 않습니다. msg : jwt expired') {
+            if (message === 'Access token has expired') {
               history.push('/refresh-token')
             } else {
-              showToast('error', '세션이 만료되었습니다')
+              showToast('error', 'Session expired')
               store.dispatch(logout())
               history.push('/login')
             }

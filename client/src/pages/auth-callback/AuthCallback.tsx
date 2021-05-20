@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useRouter from 'src/hooks/useRouter'
-import { setAccessToken } from 'src/slices/auth'
+import { setAccessToken } from 'src/redux/auth'
 import { IRootState } from 'src/types/redux.type'
 
 const AuthCallback = () => {

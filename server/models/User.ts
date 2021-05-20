@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose'
 import autopopulate from 'mongoose-autopopulate'
-import { IUserDoc } from './../types/user'
+import { IUserDoc } from '../types/user.type'
 
 const userSchema = new Schema({
   authProvider: {

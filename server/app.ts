@@ -12,7 +12,7 @@ import DBConnect from './dbConfigs'
 import User from './models/User'
 import router from './router'
 import testScript from './testScript'
-import { IUserDoc } from './types/user'
+import { IUserDoc } from './types/user.type'
 
 // env variables
 dotenv.config()

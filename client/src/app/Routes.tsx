@@ -4,13 +4,14 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import useIsMobile from 'src/hooks/useIsMobile'
 import { IRootState } from 'src/types/redux.type'
 
-const Home = React.lazy(() => import('src/pages/Home'))
-const AuthCallback = React.lazy(() => import('src/pages/AuthCallback'))
-const Login = React.lazy(() => import('src/pages/Login'))
-const Logout = React.lazy(() => import('src/pages/Logout'))
-const MobileBlock = React.lazy(() => import('src/pages/MobileBlock'))
-const FormTest = React.lazy(() => import('src/pages/FormTest'))
-const DesignSystem = React.lazy(() => import('src/pages/DesignSystem'))
+const Home = React.lazy(() => import('src/pages/home/Home'))
+const AuthCallback = React.lazy(() => import('src/pages/auth-callback/AuthCallback'))
+const Login = React.lazy(() => import('src/pages/login/Login'))
+const Logout = React.lazy(() => import('src/pages/logout/Logout'))
+const MobileBlock = React.lazy(() => import('src/pages/mobile-block/MobileBlock'))
+const FormTest = React.lazy(() => import('src/pages/form-test/FormTest'))
+const DesignSystem = React.lazy(() => import('src/pages/design-system/DesignSystem'))
+const TaskManagement = React.lazy(() => import('src/pages/task-management/TaskManagement'))
 
 interface IRoute {
   path: string
@@ -81,6 +82,15 @@ export const routes: IRoute[] = [
     isDesktopOnly: false,
   },
   {
+    path: '/task-management',
+    component: TaskManagement,
+    label: 'Task management',
+    isPublicNav: false,
+    isPrivateNav: false,
+    isPrivateRoute: true,
+    isDesktopOnly: false,
+  },
+  {
     path: '/',
     component: Home,
     label: 'Home',
@@ -137,7 +147,7 @@ const Routes = () => {
               isPrivateRoute={isPrivateRoute}
               isDesktopOnly={isDesktopOnly}
               {...rest}
-          />
+            />
           : isDesktopOnly
             ? <DesktopRoute
                 key={path}
@@ -146,12 +156,12 @@ const Routes = () => {
                 isPrivateRoute={isPrivateRoute}
                 isDesktopOnly={isDesktopOnly}
                 {...rest}
-            />
+              />
             : <Route
                 key={path}
                 path={path}
                 component={component}
-            />
+              />
         )}
       </Switch>
     </Suspense>
