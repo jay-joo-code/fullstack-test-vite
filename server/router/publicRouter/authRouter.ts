@@ -72,7 +72,7 @@ authRouter.get(
   (req, res) => {
     // @ts-ignore
     const token = jwt.sign({ _id: req.user._id }, process.env.AUTH_SECRET)
-    res.redirect(`${process.env.DEV_CLIENT_DOMAIN}/auth/callback?token=${token}`)
+    res.redirect(`${process.env.CLIENT_DOMAIN}/auth/callback?token=${token}`)
   }
 )
 
@@ -88,7 +88,7 @@ authRouter.get(
 //   (req, res) => {
 //     // @ts-ignore
 //     const token = jwt.sign({ _id: req.user._id }, process.env.AUTH_SECRET)
-//     res.redirect(`${process.env.DEV_CLIENT_DOMAIN}/auth/callback?token=${token}`)
+//     res.redirect(`${process.env.CLIENT_DOMAIN}/auth/callback?token=${token}`)
 //   }
 // )
 
@@ -104,7 +104,7 @@ authRouter.get(
 //   (req, res) => {
 //     // @ts-ignore
 //     const token = jwt.sign({ _id: req.user._id }, process.env.AUTH_SECRET)
-//     res.redirect(`${process.env.DEV_CLIENT_DOMAIN}/auth/callback?token=${token}`)
+//     res.redirect(`${process.env.CLIENT_DOMAIN}/auth/callback?token=${token}`)
 //   }
 // )
 
@@ -120,7 +120,7 @@ authRouter.get(
 //   (req, res) => {
 //     // @ts-ignore
 //     const token = jwt.sign({ _id: req.user._id }, process.env.AUTH_SECRET)
-//     res.redirect(`${process.env.DEV_CLIENT_DOMAIN}/auth/callback?token=${token}`)
+//     res.redirect(`${process.env.CLIENT_DOMAIN}/auth/callback?token=${token}`)
 //   }
 // )
 
