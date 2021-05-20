@@ -24,8 +24,6 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.get('/current', async (req, res) => {
   try {
-    console.log('userRouter /current')
-
     res.send(req.user)
   } catch (e) {
     res.status(500).send(e)

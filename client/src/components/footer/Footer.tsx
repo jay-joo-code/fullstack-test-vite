@@ -11,7 +11,7 @@ const Footer = () => {
 
 const StyledFooter = styled.div`
   width: 100%;
-  border-top: 1px solid ${props => props.theme.border};
+  border-top: 1px solid ${props => props.theme.border.default};
   padding: 1rem;
 `
 

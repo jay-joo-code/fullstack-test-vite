@@ -25,7 +25,7 @@ const Header = () => {
 }
 
 const Container = styled.div`
-  border-bottom: 1px solid ${(props) => props.theme.border};
+  border-bottom: 1px solid ${(props) => props.theme.border.default};
 `
 
 export default Header

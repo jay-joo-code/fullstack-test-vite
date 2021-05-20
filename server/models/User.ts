@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose'
 import autopopulate from 'mongoose-autopopulate'
-import { IUserDoc } from '../types/user.type'
+import { IUserDocument } from '../types/user.type'
 
 const userSchema = new Schema({
   authProvider: {
@@ -17,4 +17,4 @@ const userSchema = new Schema({
 
 userSchema.plugin(autopopulate)
 
-export default model<IUserDoc>('User', userSchema)
+export default model<IUserDocument>('User', userSchema)

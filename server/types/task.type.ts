@@ -1,6 +1,6 @@
-import { IDocument } from './index.type'
+import { Document } from 'mongoose'
 
-export interface ITask extends IDocument {
+export interface ITaskDocument extends Document {
   userId: string
   isComplete: boolean
   startTime: string

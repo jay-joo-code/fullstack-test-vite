@@ -12,7 +12,7 @@ import DBConnect from './dbConfigs'
 import User from './models/User'
 import router from './router'
 import testScript from './testScript'
-import { IUserDoc } from './types/user.type'
+import { IUserDocument } from './types/user.type'
 
 // env variables
 dotenv.config()
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }))
 // passport
 declare global {
   namespace Express {
-      interface User extends IUserDoc {}
+      interface User extends IUserDocument {}
   }
 }
 
@@ -42,7 +42,7 @@ const opts = {
   secretOrKey: process.env.AUTH_SECRET,
 }
 passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
-  User.findById(jwtPayload._id, (err: any, user: IUserDoc) => {
+  User.findById(jwtPayload._id, (err: any, user: IUserDocument) => {
     if (err) {
       return done(err, false)
     }

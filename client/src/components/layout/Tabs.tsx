@@ -30,7 +30,7 @@ const TabListItem = styled.div<TabListItemProps>`
 
   // isActive
   border-color: ${(props) => props.isActive && props.theme.brand[500]};
-  color: ${(props) => props.isActive && props.theme.text};
+  color: ${(props) => props.isActive && props.theme.text.default};
   font-weight: ${(props) => props.isActive && 500};
 `
 

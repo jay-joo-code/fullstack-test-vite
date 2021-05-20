@@ -1,4 +1,5 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, forwardRef } from 'react'
+
 import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import ErrorMsg from '../fonts/ErrorMsg'
@@ -15,10 +16,10 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string
 }
 
-const TextField = (props: TextFieldProps) => {
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props: TextFieldProps, ref) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && props.onEnterPress) {
-      props.onEnterPress()
+    if (e.key === 'Enter' && props?.onEnterPress) {
+      props?.onEnterPress()
     }
   }
 
@@ -28,6 +29,7 @@ const TextField = (props: TextFieldProps) => {
       <div>
         <StyledTextField
           {...props}
+          ref={ref}
           onKeyDown={handleKeyDown}
           error={props.error != null}
         />
@@ -35,7 +37,9 @@ const TextField = (props: TextFieldProps) => {
       <ErrorMsg error={props.error} />
     </TextFieldContainer>
   )
-}
+})
+
+TextField.displayName = 'TextField'
 
 interface HookedTextFieldProps {
   width?: number
@@ -77,14 +81,14 @@ const StyledTextField = styled.input<StyledTextFieldProps>`
   background: ${(props) => props.theme.bg};
   font-weight: 400;
   font-size: 1rem;
-  border: 2px solid ${(props) => props.theme.borderDark};
+  border: 2px solid ${(props) => props.theme.border.dark};
   border-radius: 4px;
   padding: 8px 12px;
   transition: border 0.1s ease-in-out;
   box-shadow: none;
 
   // disabled
-  background: ${(props) => props.disabled && props.theme.bgWash};
+  background: ${(props) => props.disabled && props.theme.bg.wash};
 
   // width
   width: ${(props) => props.width && `${props.width}px`};

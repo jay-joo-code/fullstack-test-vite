@@ -25,7 +25,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
   font-size: .9rem;
   letter-spacing: -0.4px;
   margin-bottom: .4rem;
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.text.default};
   display: block;
   text-transform: uppercase;
 

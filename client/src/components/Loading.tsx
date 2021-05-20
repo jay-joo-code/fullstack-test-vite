@@ -5,9 +5,9 @@ interface LoadingProps {
 }
 
 const Loading = styled.div<LoadingProps>`
-  border-top: 3px solid ${(props) => props.theme.borderDark};
-  border-right: 3px solid ${(props) => props.theme.borderDark};
-  border-bottom: 3px solid ${(props) => props.theme.borderDark};
+  border-top: 3px solid ${(props) => props.theme.border.dark};
+  border-right: 3px solid ${(props) => props.theme.border.dark};
+  border-bottom: 3px solid ${(props) => props.theme.border.dark};
   border-left: 3px solid ${(props) => props.theme.brand[500]};
 
   transform: translateZ(0);

@@ -69,7 +69,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     padding: '0',
-    border: `1px solid ${theme.border}`,
+    border: `1px solid ${theme.border.default}`,
     maxWidth: '95vw',
   },
   overlay: {
@@ -86,7 +86,7 @@ const TopRow = styled(FlexRow)<TopRowProps>`
   padding: .5rem .6rem .5rem .5rem;
 
   // heading
-  border-bottom: ${props => props?.heading && `1px solid ${props.theme.border}`};
+  border-bottom: ${props => props?.heading && `1px solid ${props.theme.border.default}`};
 
   & > *:first-child {
     margin-right: 1rem;

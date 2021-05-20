@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import CreateTaskTextField from './CreateTaskTextField'
+import TaskList from './TaskList'
 
 const InboxPage = () => {
   return (
     <Container>
-      InboxPage
+      <CreateTaskTextField />
+      <TaskList />
     </Container>
   )
 }

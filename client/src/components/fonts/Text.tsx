@@ -57,7 +57,7 @@ export interface CoreTextProps {
 }
 
 const CoreText = styled.p<CoreTextProps>`
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.text.default};
   white-space: pre-line;
   word-break: break-word;
   font-weight: 400;
