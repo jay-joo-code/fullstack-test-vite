@@ -1,11 +1,17 @@
 import React from 'react'
-import Auth from 'src/components/auth/Auth'
+import { useCurrentUser } from 'src/api/user'
+import useRouter from 'src/hooks/useRouter'
 import styled from 'styled-components'
 
 const Home = () => {
+  const { currentUser } = useCurrentUser()
+  const router = useRouter()
+
+  if (currentUser) router.push('/inbox')
+
   return (
     <Container>
-      <Auth />
+      Home
     </Container>
   )
 }

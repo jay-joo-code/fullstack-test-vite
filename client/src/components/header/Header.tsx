@@ -16,7 +16,8 @@ const Header = () => {
           style={{ padding: '.5rem' }}
         >
           {/* <Logo /> */}
-          {/* <Auth /> */}
+          <div />
+          <Auth />
         </FlexRow>
       </DesktopContainer>
     </Container>

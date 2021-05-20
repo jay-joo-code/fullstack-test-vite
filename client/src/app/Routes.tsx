@@ -11,7 +11,7 @@ const Logout = React.lazy(() => import('src/pages/logout/Logout'))
 const MobileBlock = React.lazy(() => import('src/pages/mobile-block/MobileBlock'))
 const FormTest = React.lazy(() => import('src/pages/form-test/FormTest'))
 const DesignSystem = React.lazy(() => import('src/pages/design-system/DesignSystem'))
-const TaskManagement = React.lazy(() => import('src/pages/task-management/TaskManagement'))
+const InboxPage = React.lazy(() => import('src/pages/inbox/InboxPage'))
 
 interface IRoute {
   path: string
@@ -82,9 +82,9 @@ export const routes: IRoute[] = [
     isDesktopOnly: false,
   },
   {
-    path: '/task-management',
-    component: TaskManagement,
-    label: 'Task management',
+    path: '/inbox',
+    component: InboxPage,
+    label: 'Inbox',
     isPublicNav: false,
     isPrivateNav: false,
     isPrivateRoute: true,

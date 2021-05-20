@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const TaskManagement = () => {
+const InboxPage = () => {
   return (
     <Container>
-      TaskManagement
+      InboxPage
     </Container>
   )
 }
@@ -13,4 +13,4 @@ const Container = styled.div`
   
 `
 
-export default TaskManagement
+export default InboxPage
