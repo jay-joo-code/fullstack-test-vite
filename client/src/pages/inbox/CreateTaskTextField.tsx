@@ -39,8 +39,9 @@ const CreateTaskTextField = ({ onFocus }: CreateTaskTextFieldProps) => {
         ref={ref}
         value={name}
         onChange={(e) => setName(e.target.value)}
-        fullWidth
         onEnterPress={handleCreateTask}
+        fullWidth
+        autoFocus
       />
     </Container>
   )
