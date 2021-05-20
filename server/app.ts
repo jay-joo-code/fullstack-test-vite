@@ -68,7 +68,7 @@ app.get('*', (req, res) => {
 })
 
 // listen at port
-const port: number = Number(process.env.PORT) || 5000
+const port: number = Number(process.env.PORT) || 4001
 app.listen(port, () => {
   // tslint:disable-next-line:no-console
   console.log(`Listening on port: ${port}`)

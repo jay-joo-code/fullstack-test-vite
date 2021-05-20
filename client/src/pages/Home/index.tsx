@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import FetchDataTest from './FetchDataTest'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <div>
         <Link to='/design-system'>design system</Link>
       </div>
+      <FetchDataTest />
     </Container>
   )
 }
