@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useUpdateInboxTaskById } from 'src/api/task'
 import useKeyPress from 'src/hooks/useKeyPress'
 import { ITask } from 'src/types/task.type'
@@ -37,6 +37,7 @@ const TaskName = ({ task, isFocused, setIsListDisabled }: TaskNameProps) => {
   useKeyPress('Escape', () => {
     if (isEditMode) {
       setIsEditMode(false)
+      setIsListDisabled(true)
       updateInboxTask({
         _id: task?._id,
         name: inputValue,

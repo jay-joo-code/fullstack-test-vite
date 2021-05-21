@@ -6,6 +6,6 @@ export interface ITask extends IDocument {
   startTime: string
   endTime: string
   name: string
-  due: Date
+  due: Date | null
   notes: string
 }

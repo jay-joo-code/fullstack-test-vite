@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 interface FlexElementProps {
+  justifyStart?: boolean
   justifySpaceBetween?: boolean
   justifyCenter?: boolean
   justifyEnd?: boolean
@@ -15,6 +16,9 @@ interface FlexElementProps {
 
 const FlexElement = styled.div<FlexElementProps>`
   display: flex;
+
+  // justifyStart
+  justify-content: ${(props) => props.justifyStart && 'flex-start'};
 
   // justifySpaceBetween
   justify-content: ${(props) => props.justifySpaceBetween && 'space-between'};

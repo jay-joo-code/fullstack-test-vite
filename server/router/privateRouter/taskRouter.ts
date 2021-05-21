@@ -16,6 +16,20 @@ taskRouter.post('/', async (req, res) => {
   }
 })
 
+// get user's schedule tasks
+taskRouter.get('/schedule', async (req, res) => {
+  try {
+    const docs = await Task.find({
+      userId: req.user?._id,
+      due: { $ne: null },
+      isComplete: false,
+    }).sort({ createdAt: -1 })
+    res.send(docs)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 // get user's inbox tasks
 taskRouter.get('/inbox', async (req, res) => {
   try {

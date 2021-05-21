@@ -7,13 +7,15 @@ import styled from 'styled-components'
 interface TaskListProps {
   isListDisabled: boolean
   setIsListDisabled: (value: boolean) => void
+  focusIdx: number
+  setFocusIdx: (value: number) => void
 }
 
-const TaskList = ({ isListDisabled, setIsListDisabled }: TaskListProps) => {
+const TaskList = ({ isListDisabled, setIsListDisabled, focusIdx, setFocusIdx }: TaskListProps) => {
   const { tasks } = useInboxTasks()
 
   // focus
-  const [focusIdx, setFocusIdx] = useState<number>(0)
+
   useKeyPress('ArrowUp', () => {
     if (!isListDisabled) {
       setFocusIdx(Math.max(focusIdx - 1, 0))

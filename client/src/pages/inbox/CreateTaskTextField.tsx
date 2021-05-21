@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useCreateTask } from 'src/api/task'
 import TextField from 'src/components/form-elements/TextField'
 import useKeyPress from 'src/hooks/useKeyPress'
@@ -7,9 +7,11 @@ import styled from 'styled-components'
 interface CreateTaskTextFieldProps {
   isListDisabled: boolean
   setIsListDisabled: (value: boolean) => void
+  focusIdx: number
+  setFocusIdx: (value: number) => void
 }
 
-const CreateTaskTextField = ({ isListDisabled, setIsListDisabled }: CreateTaskTextFieldProps) => {
+const CreateTaskTextField = ({ isListDisabled, setIsListDisabled, focusIdx, setFocusIdx }: CreateTaskTextFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { createTask } = useCreateTask()
@@ -35,6 +37,14 @@ const CreateTaskTextField = ({ isListDisabled, setIsListDisabled }: CreateTaskTe
     } else {
       inputRef.current?.focus()
       setIsListDisabled(true)
+    }
+  })
+
+  useKeyPress('ArrowDown', () => {
+    if (document.activeElement === inputRef?.current) {
+      setFocusIdx(0)
+      inputRef.current?.blur()
+      setIsListDisabled(false)
     }
   })
 
