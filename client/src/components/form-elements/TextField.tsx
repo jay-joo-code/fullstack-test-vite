@@ -17,7 +17,7 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props: TextFieldProps, ref) => {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && props?.onEnterPress) {
       props?.onEnterPress()
     }
@@ -30,7 +30,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props: TextField
         <StyledTextField
           {...props}
           ref={ref}
-          onKeyDown={handleKeyDown}
+          onKeyPress={handleKeyPress}
           error={props.error != null}
         />
       </div>

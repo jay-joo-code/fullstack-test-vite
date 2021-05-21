@@ -4,7 +4,7 @@ import { IQueryConfig } from './useCustomQuery'
 
 interface IUpdateLocal {
   queryConfigs: IQueryConfig[];
-  type?: 'create' | 'update' | 'delete';
+  type?: 'appendStart' | 'appendEnd' | 'update' | 'delete';
   mutationFn?: (oldData: any, newVariables: any) => any
   isNotRefetchOnSettle?: boolean
 }
@@ -49,8 +49,14 @@ const useCustomMutation = <T>({
                   return updateLocal.mutationFn(oldData, newVariables)
                 }
 
-                // create
-                if (updateLocal.type === 'create') {
+                // appendStart
+                if (updateLocal.type === 'appendStart') {
+                  if (oldData) return [newVariables, ...oldData]
+                  return [newVariables]
+                }
+
+                // appendEnd
+                if (updateLocal.type === 'appendEnd') {
                   if (oldData) return [...oldData, newVariables]
                   return [newVariables]
                 }

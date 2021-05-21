@@ -1,7 +1,7 @@
 export default {
   // brand
   brand: {
-    50: '#f6e4e4',
+    50: '#FCF6F6',
     100: '#e8bbbb',
     200: '#d98d8d',
     300: '#ca5f5f',

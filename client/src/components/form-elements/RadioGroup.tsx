@@ -1,7 +1,7 @@
-import React, { forwardRef, InputHTMLAttributes } from 'react'
-import styled from 'styled-components'
+import React, { InputHTMLAttributes } from 'react'
+import { useFormContext } from 'react-hook-form'
 import ErrorMsg from 'src/components/fonts/ErrorMsg'
-import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
+import styled from 'styled-components'
 
 interface IOption {
   label: string

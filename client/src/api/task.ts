@@ -2,12 +2,12 @@ import useCustomMutation from 'src/hooks/useCustomMutation'
 import useCustomQuery from 'src/hooks/useCustomQuery'
 import { ITask } from 'src/types/task.type'
 
-export const fetchCurrentTasks = () => ({
-  url: '/private/task',
+export const fetchInboxTasks = () => ({
+  url: '/private/task/inbox',
 })
 
-export const useTasks = () => {
-  const { data: tasks, ...rest } = useCustomQuery<ITask[]>(fetchCurrentTasks())
+export const useInboxTasks = () => {
+  const { data: tasks, ...rest } = useCustomQuery<ITask[]>(fetchInboxTasks())
 
   return {
     ...rest,
@@ -28,8 +28,8 @@ export const useCreateTask = () => {
     url: '/private/task',
     method: 'post',
     updateLocal: {
-      queryConfigs: [fetchCurrentTasks()],
-      type: 'create',
+      queryConfigs: [fetchInboxTasks()],
+      type: 'appendStart',
     },
   })
 
@@ -39,20 +39,21 @@ export const useCreateTask = () => {
   }
 }
 
-// export const useUpdateListingById = (_id: string) => {
-//   const { mutate: updateListing, ...rest } = useCustomMutation<ListingDoc>({
-//     url: `/private/listing/${_id}`,
-//     method: 'put',
-//     updateLocal: {
-//       queryConfigs: [fetchMyListingsConfig()],
-//       type: 'update',
-//     },
-//   })
-//   return {
-//     ...rest,
-//     updateListing,
-//   }
-// }
+export const useUpdateInboxTaskById = (_id: string) => {
+  const { mutate: updateInboxTask, ...rest } = useCustomMutation<ITask>({
+    url: `/private/task/${_id}`,
+    method: 'put',
+    updateLocal: {
+      queryConfigs: [fetchInboxTasks()],
+      type: 'update',
+    },
+  })
+
+  return {
+    ...rest,
+    updateInboxTask,
+  }
+}
 
 // export const useDeleteListingById = (_id: string) => {
 //   const { mutate: deleteListing, ...rest } = useCustomMutation<ListingDoc>({

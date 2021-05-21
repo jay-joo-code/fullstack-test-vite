@@ -6,15 +6,26 @@ const taskRouter = express.Router()
 // create task
 taskRouter.post('/', async (req, res) => {
   try {
-    console.log('req.body', req.body)
     const doc = await new Task({
       ...req.body,
       userId: req.user?._id,
     }).save()
-    console.log('doc', doc)
     res.send(doc)
   } catch (e) {
-    console.log('e', e)
+    res.status(500).send(e)
+  }
+})
+
+// get user's inbox tasks
+taskRouter.get('/inbox', async (req, res) => {
+  try {
+    const docs = await Task.find({
+      userId: req.user?._id,
+      due: undefined,
+      isComplete: false,
+    }).sort({ createdAt: -1 })
+    res.send(docs)
+  } catch (e) {
     res.status(500).send(e)
   }
 })
