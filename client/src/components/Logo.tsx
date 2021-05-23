@@ -6,7 +6,7 @@ import Text from './fonts/Text'
 const Logo = () => {
   return (
     <Link to='/'>
-      <StyledLogo variant='h3'>bunjang</StyledLogo>
+      <StyledLogo variant='h4'>Prosys</StyledLogo>
     </Link>
   )
 }

@@ -9,16 +9,15 @@ const Header = () => {
   return (
     <Container>
       <DesktopContainer>
-        <FlexRow
+        <Row
           alignCenter
           justifySpaceBetween
           fullWidth
-          style={{ padding: '.5rem' }}
         >
-          {/* <Logo /> */}
+          <Logo />
           <div />
           <Auth />
-        </FlexRow>
+        </Row>
       </DesktopContainer>
     </Container>
   )
@@ -26,6 +25,10 @@ const Header = () => {
 
 const Container = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.border.default};
+`
+
+const Row = styled(FlexRow)`
+  padding: .5rem .5rem .5rem .8rem;
 `
 
 export default Header

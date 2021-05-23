@@ -10,8 +10,9 @@ interface TaskIsCompleteProps {
 }
 
 const TaskIsComplete = ({ task, isFocused }: TaskIsCompleteProps) => {
-  useKeyPress(' ', () => {
+  useKeyPress(' ', (event) => {
     if (isFocused) {
+      event.preventDefault()
       updateInboxTask({
         _id: task?._id,
         isComplete: !task?.isComplete,

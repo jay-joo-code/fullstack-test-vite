@@ -34,5 +34,7 @@ module.exports = {
     'react/jsx-indent': ['warn', 2],
     quotes: ['warn', 'single'],
     'jsx-quotes': ['warn', 'prefer-single'],
+    indent: 'off',
+    '@typescript-eslint/indent': ['warn', 2],
   },
 }

@@ -42,7 +42,7 @@ const TaskNotes = ({ isFocused, task, setIsListDisabled }: TaskNotesProps) => {
     if (isEditMode) {
       event.preventDefault()
       setIsEditMode(false)
-      setIsListDisabled(true)
+      setIsListDisabled(false)
       updateInboxTask({
         _id: task?._id,
         notes: textareaValue,
@@ -80,6 +80,7 @@ const Container = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  padding-left: .2rem;
 `
 
 const NotesTextarea = styled(TextareaAutosize)`
@@ -87,7 +88,9 @@ const NotesTextarea = styled(TextareaAutosize)`
   border: none;
   font-family: inherit;
   line-height: 1.5;
-  font-size: 1rem;
+  letter-spacing: .5px;
+  font-size: 14px;
+  color: ${props => props.theme.text.light};
 `
 
 export default TaskNotes

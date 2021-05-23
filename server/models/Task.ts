@@ -25,7 +25,7 @@ const taskSchema = new Schema({
   },
   due: {
     type: Date,
-    default: null,
+    default: new Date(),
   },
   tags: {
     type: [String],

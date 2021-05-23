@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FlexColumn } from 'src/components/layout/Flex'
 import Space from 'src/components/layout/Space'
+import styled from 'styled-components'
 import CreateTaskTextField from './CreateTaskTextField'
 import TaskList from './TaskList'
 
@@ -9,24 +10,28 @@ const InboxPage = () => {
   const [focusIdx, setFocusIdx] = useState<number>(0)
 
   return (
-    <FlexColumn alignCenter>
-      <div>
+    <Padding>
+      <FlexColumn>
         <CreateTaskTextField
           isListDisabled={isListDisabled}
           setIsListDisabled={setIsListDisabled}
           focusIdx={focusIdx}
           setFocusIdx={setFocusIdx}
         />
-        <Space padding='1rem 0' />
+        <Space padding='.5rem 0' />
         <TaskList
           isListDisabled={isListDisabled}
           setIsListDisabled={setIsListDisabled}
           focusIdx={focusIdx}
           setFocusIdx={setFocusIdx}
         />
-      </div>
-    </FlexColumn>
+      </FlexColumn>
+    </Padding>
   )
 }
+
+const Padding = styled.div`
+  padding: 1rem;
+`
 
 export default InboxPage

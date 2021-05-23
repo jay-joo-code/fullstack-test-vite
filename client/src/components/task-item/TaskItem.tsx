@@ -7,6 +7,7 @@ import TaskDue from './TaskDue'
 import TaskIsComplete from './TaskIsComplete'
 import TaskName from './TaskName'
 import TaskNotes from './TaskNotes'
+import TaskTime from './TaskTime'
 
 interface TaskItemProps {
   task: ITask
@@ -14,29 +15,43 @@ interface TaskItemProps {
   isFocused: boolean
   idx: number
   setIsListDisabled: (value: boolean) => void
+  setFocusIdx: (idx: number) => void
 }
 
-const TaskItem = ({ task, isSelected, isFocused, idx, setIsListDisabled }: TaskItemProps) => {
+const TaskItem = ({ task, isSelected, isFocused, idx, setIsListDisabled, setFocusIdx }: TaskItemProps) => {
+  const handleClick = () => {
+    setFocusIdx(idx)
+  }
+
   return (
     <Container
       isSelected={isSelected}
       isFocused={isFocused}
+      onClick={handleClick}
     >
       <FlexRow alignStart>
         <div>
-          <Space padding='.2rem 0' />
+          <Space padding='.17rem 0' />
           <TaskIsComplete
             task={task}
             isFocused={isFocused}
           />
         </div>
-        <Space padding='0 .5rem' />
+        <Space padding='0 .2rem' />
         <FullWidth>
-          <TaskName
-            isFocused={isFocused}
-            task={task}
-            setIsListDisabled={setIsListDisabled}
-          />
+          <FlexRow alignCenter>
+            <TaskTime
+              isFocused={isFocused}
+              task={task}
+              setIsListDisabled={setIsListDisabled}
+            />
+            <Space padding='0 .1rem' />
+            <TaskName
+              isFocused={isFocused}
+              task={task}
+              setIsListDisabled={setIsListDisabled}
+            />
+          </FlexRow>
           <TaskNotes
             isFocused={isFocused}
             task={task}
@@ -70,7 +85,7 @@ const Container = styled.div<ContainerProps>`
 `
 
 const FullWidth = styled.div`
-  /* width: 100%; */
+  width: 100%;
 `
 
 export default TaskItem

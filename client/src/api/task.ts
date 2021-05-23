@@ -1,17 +1,40 @@
 import useCustomMutation from 'src/hooks/useCustomMutation'
 import useCustomQuery from 'src/hooks/useCustomQuery'
-import { ITask } from 'src/types/task.type'
+import { IScheduleTasks, ITask } from 'src/types/task.type'
 
 export const fetchInboxTasks = () => ({
   url: '/private/task/inbox',
 })
 
+export const fetchScheduleTasks = () => ({
+  url: '/private/task/schedule',
+})
+
 export const useInboxTasks = () => {
   const { data: tasks, ...rest } = useCustomQuery<ITask[]>(fetchInboxTasks())
+
+  tasks?.sort((a, b) => {
+    const aDate = new Date(a.due)
+      .setHours(Number(a.startTime?.slice(0, 2)), Number(a.startTime?.slice(2, 4)), 0, 0)
+
+    const bDate = new Date(b.due)
+      .setHours(Number(b.startTime?.slice(0, 2)), Number(b.startTime?.slice(2, 4)), 0, 0)
+
+    return aDate - bDate || new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+  })
 
   return {
     ...rest,
     tasks,
+  }
+}
+
+export const useScheduleTasks = () => {
+  const { data: scheduleTasks, ...rest } = useCustomQuery<IScheduleTasks>(fetchScheduleTasks())
+
+  return {
+    ...rest,
+    scheduleTasks,
   }
 }
 
@@ -52,6 +75,22 @@ export const useUpdateInboxTaskById = (_id: string) => {
   return {
     ...rest,
     updateInboxTask,
+  }
+}
+
+export const useUpdateScheduleTaskById = (_id: string) => {
+  const { mutate: updateScheduleTask, ...rest } = useCustomMutation<ITask>({
+    url: `/private/task/${_id}`,
+    method: 'put',
+    updateLocal: {
+      queryConfigs: [fetchScheduleTasks()],
+      type: 'update',
+    },
+  })
+
+  return {
+    ...rest,
+    updateScheduleTask,
   }
 }
 

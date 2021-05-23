@@ -19,6 +19,7 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props: TextFieldProps, ref) => {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && props?.onEnterPress) {
+      e.preventDefault()
       props?.onEnterPress()
     }
   }

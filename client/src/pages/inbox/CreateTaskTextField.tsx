@@ -22,6 +22,8 @@ const CreateTaskTextField = ({ isListDisabled, setIsListDisabled, focusIdx, setF
       if (document.activeElement === inputRef?.current) {
         createTask({
           name,
+          due: new Date(),
+          createdAt: new Date(),
         })
         setName('')
       }
@@ -34,7 +36,7 @@ const CreateTaskTextField = ({ isListDisabled, setIsListDisabled, focusIdx, setF
     if (document.activeElement === inputRef?.current) {
       inputRef.current?.blur()
       setIsListDisabled(false)
-    } else {
+    } else if (!isListDisabled) {
       inputRef.current?.focus()
       setIsListDisabled(true)
     }
@@ -45,6 +47,13 @@ const CreateTaskTextField = ({ isListDisabled, setIsListDisabled, focusIdx, setF
       setFocusIdx(0)
       inputRef.current?.blur()
       setIsListDisabled(false)
+    }
+  })
+
+  useKeyPress('ArrowUp', () => {
+    if (focusIdx === 0 && !isListDisabled) {
+      inputRef.current?.focus()
+      setIsListDisabled(true)
     }
   })
 
@@ -63,7 +72,7 @@ const CreateTaskTextField = ({ isListDisabled, setIsListDisabled, focusIdx, setF
 }
 
 const Container = styled.div`
-  width: 400px;
+  width: 100%
 `
 
 export default CreateTaskTextField

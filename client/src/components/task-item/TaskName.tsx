@@ -59,7 +59,14 @@ const TaskName = ({ task, isFocused, setIsListDisabled }: TaskNameProps) => {
             onChange={handleInputChange}
             autoFocus
           />
-        : <Text variant='p'>{task.name}</Text>
+        : (
+          <Text
+            variant='p'
+            nowrap
+            ellipsis
+          >{task.name}
+          </Text>
+          )
       }
     </Container>
   )
@@ -70,6 +77,8 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  padding-right: 1rem;
 `
 
 const NameTextField = styled.input`

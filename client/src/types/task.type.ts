@@ -6,6 +6,10 @@ export interface ITask extends IDocument {
   startTime: string
   endTime: string
   name: string
-  due: Date | null
+  due: Date
   notes: string
+}
+
+export interface IScheduleTasks {
+  [id: string]: ITask[]
 }

@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useInboxTasks } from 'src/api/task'
+import theme from 'src/app/theme'
+import Text from 'src/components/fonts/Text'
+import Space from 'src/components/layout/Space'
 import TaskItem from 'src/components/task-item/TaskItem'
 import useKeyPress from 'src/hooks/useKeyPress'
+import { getDateStamp } from 'src/util/date'
+import { isTaskTimeSet } from 'src/util/task'
 import styled from 'styled-components'
 
 interface TaskListProps {
@@ -14,8 +19,7 @@ interface TaskListProps {
 const TaskList = ({ isListDisabled, setIsListDisabled, focusIdx, setFocusIdx }: TaskListProps) => {
   const { tasks } = useInboxTasks()
 
-  // focus
-
+  // Focus
   useKeyPress('ArrowUp', () => {
     if (!isListDisabled) {
       setFocusIdx(Math.max(focusIdx - 1, 0))
@@ -31,16 +35,34 @@ const TaskList = ({ isListDisabled, setIsListDisabled, focusIdx, setFocusIdx }: 
 
   return (
     <Container>
-      {tasks?.map((task, idx) => (
-        <TaskItem
-          key={task?._id}
-          task={task}
-          idx={idx}
-          isFocused={!isListDisabled && focusIdx === idx}
-          isSelected={false}
-          setIsListDisabled={setIsListDisabled}
-        />
-      ))}
+      {tasks?.map((task, idx) => {
+        const renderDateStamp = idx === 0 || getDateStamp(task?.due) !== getDateStamp(tasks[idx - 1]?.due)
+        const renderDividingSpace = idx !== 0 && isTaskTimeSet(task) && !isTaskTimeSet(tasks[idx - 1])
+
+        return (
+          <div key={`${task?._id}${task?.name}`}>
+            {renderDateStamp && (
+              <>
+                <Space padding='.5rem 0' />
+                <Text
+                  variant='h4'
+                  color={theme.text.light}
+                >{getDateStamp(task?.due)}
+                </Text>
+              </>
+            )}
+            {renderDividingSpace && <Space padding='.5rem 0' />}
+            <TaskItem
+              task={task}
+              idx={idx}
+              isFocused={!isListDisabled && focusIdx === idx}
+              isSelected={false}
+              setIsListDisabled={setIsListDisabled}
+              setFocusIdx={setFocusIdx}
+            />
+          </div>
+        )
+      })}
     </Container>
   )
 }

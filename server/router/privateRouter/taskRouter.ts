@@ -1,5 +1,8 @@
 import express from 'express'
+import moment from 'moment'
 import Task from '../../models/Task'
+import { IScheduleTasks } from '../../types/task.type'
+import { isDateBeforeToday } from '../../util/date'
 
 const taskRouter = express.Router()
 
@@ -16,29 +19,31 @@ taskRouter.post('/', async (req, res) => {
   }
 })
 
-// get user's schedule tasks
-taskRouter.get('/schedule', async (req, res) => {
-  try {
-    const docs = await Task.find({
-      userId: req.user?._id,
-      due: { $ne: null },
-      isComplete: false,
-    }).sort({ createdAt: -1 })
-    res.send(docs)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
-
 // get user's inbox tasks
 taskRouter.get('/inbox', async (req, res) => {
   try {
     const docs = await Task.find({
       userId: req.user?._id,
-      due: undefined,
       isComplete: false,
-    }).sort({ createdAt: -1 })
-    res.send(docs)
+    }).sort({ due: 1 })
+
+    // set overdue task due date as today
+    const resetDue = async (_id: string) => {
+      Task.findByIdAndUpdate(_id, { due: new Date() })
+    }
+
+    const validatedTasks = docs.map((task) => {
+      if (isDateBeforeToday(task.due)) {
+        resetDue(task._id)
+        return {
+          ...task.toObject(),
+          due: new Date(),
+        }
+      }
+      return task
+    })
+
+    res.send(validatedTasks)
   } catch (e) {
     res.status(500).send(e)
   }
